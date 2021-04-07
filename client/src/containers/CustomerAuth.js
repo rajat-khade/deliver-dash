@@ -29,6 +29,7 @@ const useCustomerAuth = (initialState = null) => {
 
   const logout = () => {
     setCustomerAuth(null);
+    console.log("Logged out Customer")
     localStorage.removeItem("customer-auth");
   };
 

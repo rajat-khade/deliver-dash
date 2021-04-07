@@ -14,7 +14,7 @@ const useAuth = (initialState = null) => {
   const login = (values) => {
     setLoading(true);
     api
-      .post("api/", values)
+      .post("api/wholesaler/login", values)
       .then((data) => {
         setLoading(false);
         setWholesalerAuth(data.data);

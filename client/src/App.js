@@ -3,37 +3,22 @@ import CustomerAuth from "./containers/CustomerAuth";
 import RetailerAuth from "./containers/RetailerAuth";
 import WholesalerAuth from "./containers/WholesalerAuth";
 // import Customer from "./components/Customer";
-import Retailer from "./components/Retailer/Retailer";
-import Wholesaler from "./components/Wholesaler/Wholesaler";
 import LandingRoutes from "./components/LandingRoutes";
-import Customer from "./components/Customer/Customer";
+import CustomerSplash from "./components/Customer";
+import RetailerSplash from "./components/Retailer";
+import WholesalerSplash from "./components/Wholesaler";
 
 const App = () => {
   return (
     <>
-    <Router>
-        <Switch>
-            <Router>
-                <LandingRoutes />
-            </Router>
-            <CustomerAuth.Provider>
-                <Router>
-                    <Customer />
-                </Router>
-            </CustomerAuth.Provider>
+    
+        <CustomerAuth.Provider>
             <RetailerAuth.Provider>
-                <Router>
-                <Retailer />
-                </Router>
+                <WholesalerAuth.Provider>
+                    <LandingRoutes/>
+                </WholesalerAuth.Provider>
             </RetailerAuth.Provider>
-            <WholesalerAuth.Provider>
-                <Router>
-                <Wholesaler />
-                </Router>
-            </WholesalerAuth.Provider>
-        </Switch>
-    </Router>
-      
+        </CustomerAuth.Provider>
     
     </>
   );
