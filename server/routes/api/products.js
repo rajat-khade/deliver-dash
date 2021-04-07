@@ -1,15 +1,7 @@
-const Customer = require('../../models/Customer')
-const Retailer = require('../../models/Retailer')
-const Wholesaler = require('../../models/Wholesaler')
 const Product = require('../../models/Product')
-
-const config = require('config')
 
 const express = require('express')
 const router = express.Router()
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-
 
 // View all products which can be bought // Customer, Retailer
 router.get('/api/products', (req, res) => {
@@ -17,7 +9,7 @@ router.get('/api/products', (req, res) => {
     const ownerType = req.query.type
     const category = req.query.category
     
-    const products = Product.find({ ownerType, category })
+    const products = await Product.find({ ownerType, category })
     
     res.status(200).send(products)
   } catch(e) {
@@ -30,7 +22,7 @@ router.get('/api/:id', (req, res) => {
   try {
     const productId = req.params.id
 
-    const product = Product.findOne({ _id: productId })
+    const product = await Product.findOne({ _id: productId })
     
     res.status(200).send(product)
   } catch(e) {
@@ -56,9 +48,6 @@ router.patch('/api/products/:id', async (req, res) => {
     
   }
 })
-
-// Delete product // Retailer, Wholesaler
-router.delete()
 
 
 module.exports = router
