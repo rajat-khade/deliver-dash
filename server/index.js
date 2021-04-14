@@ -2,6 +2,9 @@ const express = require('express')
 const connectDB = require('../config/db')
 const { urlencoded } = require('body-parser')
 const authRoute = require('./routes/api/auth.js')
+const productsRoute = require('./routes/api/products.js')
+const cartRoute = require('./routes/api/cart.js')
+const stockRoute = require('./routes/api/stock.js')
 
 const app = express()
 
@@ -13,5 +16,8 @@ const port = process.env.PORT || 5000
 app.use(express.json({ extended: false }))
 
 app.use(authRoute)
+app.use(productsRoute)
+app.use(cartRoute)
+app.use(stockRoute)
 
 app.listen(port, () => console.log(`Server started on ${port}...`))

@@ -1,0 +1,13 @@
+.productModal-container {
+    width: 1000px;
+    margin-top: 50px;
+    height:600px;
+    z-index: 2;
+    background-color: #8abdd3ff;
+    border-radius: 10px;
+    position: fixed;
+    transition: 1s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #00000250;
+}

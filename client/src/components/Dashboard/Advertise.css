@@ -1,0 +1,16 @@
+
+  .picture-div {
+    text-align: center;
+    margin: 0 auto;
+    padding: 3% 4%;
+    background-color: #d6517e;
+    background-image: url("https://www.transparenttextures.com/patterns/candyhole.png");
+
+
+  
+  }
+  .picture {
+    box-shadow: 0 7px 7px 0 grey;
+    width: 80%;
+    height: 50%;
+  }

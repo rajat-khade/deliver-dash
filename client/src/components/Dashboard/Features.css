@@ -1,0 +1,27 @@
+.features {
+    margin: 10% 0;
+    padding: 7% 15%;
+    background-color: #f8f5f1;
+    position: relative;
+    z-index: 1;
+  }
+  .feature-box {
+    text-align: center;
+    padding: 5%;
+  }
+  .feature-box-content {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+  }
+  .icon {
+    color: #424642;
+    padding-bottom: 1.2rem;
+  }
+  .icon:hover {
+    color: #536162;
+  }
+  .icon-text {
+    font-size: 2rem;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: 2rem 0.5rem;
+  }

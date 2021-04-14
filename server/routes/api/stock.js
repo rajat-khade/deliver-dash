@@ -13,7 +13,7 @@ router.get('/api/:type/stock/:id', async (req, res) => {
     
     res.status(200).send(products)
   } catch (e) {
-    
+    res.status(400).send()
   }
 })
 
@@ -28,7 +28,7 @@ router.get('/api/:type/stock/:id/:productId', async (req, res) => {
     
     res.send(products)
   } catch (e) {
-    
+    res.status(400).send()
   }
 })
 
@@ -40,7 +40,13 @@ router.post('/api/:type/stock/:id', async (req, res) => {
 
     const { quantity, name, description, price, image, category } = req.body
 
-    const product = new Product({ owner: userId, ownerType, name, description, price, image, category, quantity })
+    let product = await Product.findOne({name, owner: userId, ownerType})
+
+    console.log(product)
+    if(product)
+      product['quantity'] = quantity
+    else
+      product = new Product({ owner: userId, ownerType, name, description, price, image, category, quantity })
       
     await product.save()
 

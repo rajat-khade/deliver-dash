@@ -7,10 +7,14 @@ const CartSchema = new mongoose.Schema({
   ownerType: {
     type: String
   },
-  product: {
-    type: String
+  productId: {
+    type: mongoose.Types.ObjectId
   },
   quantity: {
     type: Number
   }
 })
+
+const Cart = mongoose.model('cart', CartSchema)
+
+module.exports = Cart

@@ -123,7 +123,7 @@ router.post('/api/:type/login', async (req, res) => {
   if (!email || !password)
     res.status(400).send('Please provide email and password')
 
-  console.log(req.body)
+  // console.log(req.body)
   try {
     
     let user = null
@@ -140,7 +140,7 @@ router.post('/api/:type/login', async (req, res) => {
     }
 
 
-    console.log(user)
+    // console.log(user)
 
     if (!user)
       res.status(400).send('Invalid Credentials')
