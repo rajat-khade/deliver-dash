@@ -11,3 +11,18 @@
     flex-direction: column;
     border: 2px solid #00000250;
 }
+
+.view-cart-button {
+    cursor: pointer;
+    border: 0;
+    margin-top: auto;
+    margin: auto auto 0 auto;
+    width: 50%;
+    background-color: white;
+    transition: 0.2s ease-in-out;
+}
+
+.view-cart-button:hover {
+    background-color: yellow;
+
+}

@@ -7,6 +7,9 @@ const ProductSchema = new mongoose.Schema ({
   ownerType: {
     type: String
   },
+  ownerName: {
+    type: String
+  },
   name: {
     type: String,
   },

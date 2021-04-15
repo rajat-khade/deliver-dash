@@ -53,6 +53,25 @@ router.post('/api/signup', async (req, res) => {
   }
 })
 
+
+router.get('/api/getuser/:id', async (req,res) => {
+  let userId = req.params.id
+
+  try {
+    let user = await Customer.findOne({_id: userId}) 
+    user = user || await Retailer.findOne({_id: userId}) 
+    user = user || await Wholesaler.findOne({_id: userId})
+    
+    res.status(200).send(user)
+  }
+  catch(e){
+    res.status(400).send({"error":"Invalid user id"})
+  }
+
+  
+
+
+})
 // router.post('/api/customer/login', async (req, res) => {
 //   const { email, password } = req.body
 

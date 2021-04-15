@@ -2,19 +2,23 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import jwt_decode from "jwt-decode";
 import "./ProductModal.css"
+import { useHistory } from 'react-router';
 
 
 const ProductModal = ({modalHandler,modal}) => {
     
     const [retailerInfo, setRetailerInfo] = useState([])
     const [itemsInCart, setItemsInCart] = useState({})
-    let authToken
+    const [forceRerender, setForceRerender] = useState(true);
 
-    authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth")
+    const history = useHistory()
+    let authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth")
     
     // console.log(jwt_decode(authToken.token))
+    // console.log(typeof authToken,"yeh hai")
     let user = jwt_decode(JSON.parse(authToken).token)
-    let customerId = user.user.id
+    let buyerId = user.user.id
+    // let buyerId = "234320"
 
     let buyerType
     if(modal.ownerType === "Retailer")
@@ -22,35 +26,54 @@ const ProductModal = ({modalHandler,modal}) => {
     else    
         buyerType = "Retailer"
 
+    console.log(buyerType, buyerId)
     useEffect(async () => {
-        // let data = await axios({ url: `/api/${modal.ownerType}/products?category=${modal.category}`, baseURL: 'http://localhost:5000' })
         
-        let data = await axios({ url: `/api/${buyerType}/products?category=${modal.category}`, baseURL: 'http://localhost:5000' })
+        let data = await axios({ url: `/api/${buyerType}/products`, baseURL: 'http://localhost:5000' })
+        let cart = await axios({ url: `/api/${buyerType}/cart/${buyerId}`, baseURL: 'http://localhost:5000' })
+        let incart = {}
+        let retArray = []
+
 
         console.log("data =",data)
-        let retArray = []
-        let incart = {}
+        console.log("CART",cart)
+
+        let cartQuantity = {}
+        cart.data.forEach((item)=>{
+            cart[item.productId] = item.quantity
+        })
+
+
         data.data.forEach((product)=>{
+            if(product.name !== modal.name)
+                return
+
             let retData = {}
             retData.name = product.ownerName
             retData.price = product.price
             retData.quantity = product.quantity
-            incart[product.ownerName] = 0
+            retData.productId = product._id
+            
+            incart[product.ownerName] = cart[product._id] || 0
             retArray.push(retData)
         })
+
         setRetailerInfo(retArray)
         setItemsInCart(incart)
         console.log(retArray)
-      }, [])
+      }, [modal])
 
     return (
         <div className="container" style = {{display:'flex',justifyContent:'center'}}>
             <div className = "productModal-container">
-                <div onClick = {()=>modalHandler(false)} style={{width:'20px',height:'20px',backgroundColor:'black',cursor:'pointer',marginLeft:'auto'}}></div>
+                {/* <div onClick = {()=>modalHandler(false)} style={{width:'20px',height:'20px',backgroundColor:'black',cursor:'pointer',marginLeft:'auto'}}></div> */}
+                <button onClick = {()=>modalHandler(false)} style={{position:'absolute',right:'0', width:'20px', height:'20px',cursor:'pointer',margin: '10px 10px 0 auto',border:'none', background:"url(/images/Group-11862.svg) no-repeat", backgroundSize:'100% auto'}}>
+                <span aria-hidden="true"></span>
+                </button>
 
-                <div style={{width:'100%',height:'93%',display:'flex'}}>
-                    <div style={{width:'50%',height:'100%',display:'flex',alignItems:'center',backgroundColor:'white'}}>
-                        <div style={{width:'100%',height:'60%',background: `url(${modal.image}) no-repeat`, backgroundSize:"100% 100%"}}></div>
+                <div style={{width:'100%',height:'100%',display:'flex'}}>
+                    <div style={{width:'50%',height:'100%',display:'flex',alignItems:'center',backgroundColor:'white', borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px',borderRight:'2px solid black'}}>
+                        <div style={{width:'100%',height:'60%',background: `url(${modal.image}) no-repeat`, backgroundSize:"100% 100%", borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px'}}></div>
                     </div>
                     <div style={{width:'50%',height:'100%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
                         <h1>{modal.name}</h1>
@@ -59,9 +82,9 @@ const ProductModal = ({modalHandler,modal}) => {
 
                         <table>
                             <tr>
-                                <th>Retailer Name</th>
+                                <th>{modal.ownerType} Name</th>
                                 <th>Price</th>
-                                <th>Quantity</th>
+                                <th>Items in Cart</th>
                             </tr>
 
                             {
@@ -70,18 +93,72 @@ const ProductModal = ({modalHandler,modal}) => {
                                         <tr>
                                             <td>{retailer.name}</td>
                                             <td>{retailer.price}</td>
-                                            <td>{retailer.quantity}</td>
-                                            
-                                            <img alt="decrease" className="action-icons" src="https://t3.ftcdn.net/jpg/03/73/49/86/240_F_373498649_nBxauQ0ipBSVrVcMpWWVmTpXu3BLvRyY.jpg" height = "20px"/>
-                                            
-                                            <td>{itemsInCart[retailer.name]}</td>
+                                            <td>
 
                                             <img onClick = { async ()=>{
-                                                await axios({ url: `/api/${buyerType}/cart/${customerId}`, baseURL: 'http://localhost:5000' })
-                                                itemsInCart[retailer.name]++
-                                                setItemsInCart(itemsInCart)
+                                                let temp = itemsInCart
+
+                                                if(temp[retailer.name]==0)
+                                                    return
+                                                
+                                                temp[retailer.name]--
+                                                
+                                                let body = {
+                                                    productId : retailer.productId,
+                                                    quantity : temp[retailer.name]
+                                                }
+
+                                                try {
+                                                    let res
+                                                    if(temp[retailer.name]===0){
+                                                        res = await axios({method: 'delete', url: `/api/${buyerType}/cart/${buyerId}`, baseURL: 'http://localhost:5000',data: body})
+                                                    }
+                                                    else{
+                                                        res = await axios({method: 'patch', url: `/api/${buyerType}/cart/${buyerId}`, baseURL: 'http://localhost:5000',data: body })
+                                                    }
+                                                    
+                                                    setItemsInCart(temp)
+                                                    console.log(res)
+                                                    setForceRerender(!forceRerender);
+                                                }
+                                                catch(e){
+                                                    console.log(e,"Error")
+                                                }
+                                                
+                                            }} 
+                                            alt="decrease" className="action-icons" src="https://t3.ftcdn.net/jpg/03/73/49/86/240_F_373498649_nBxauQ0ipBSVrVcMpWWVmTpXu3BLvRyY.jpg" height = "20px"/>
+                                            
+                                            <span style={{margin:'0 10px'}}>{itemsInCart[retailer.name]}</span>
+
+                                            <img onClick = { async ()=>{
+                                                let temp = itemsInCart
+                                                temp[retailer.name]++
+
+                                                let body = {
+                                                    productId : retailer.productId,
+                                                    quantity : temp[retailer.name]
+                                                }
+
+                                                try {
+                                                    let res
+                                                    if(temp[retailer.name]===1){
+                                                        res = await axios({method: 'post', url: `/api/${buyerType}/cart/${buyerId}`, baseURL: 'http://localhost:5000',data: body})
+                                                    }
+                                                    else{
+                                                        res = await axios({method: 'patch', url: `/api/${buyerType}/cart/${buyerId}`, baseURL: 'http://localhost:5000',data: body })
+                                                    }
+                                                    
+                                                    console.log(res)
+                                                    setItemsInCart(temp)
+                                                    setForceRerender(!forceRerender);
+                                                }
+                                                catch(e){
+                                                    console.log(e,"Error")
+                                                }
+                                                
                                             }} alt="increase" className="action-icons" src="https://t4.ftcdn.net/jpg/01/07/62/07/240_F_107620769_UwNVSoXnKS4VNcOKoZjPohlEPn83oE38.jpg" height = "20px"/>
 
+                                            </td>
 
                                         </tr>
                                     )
@@ -89,8 +166,9 @@ const ProductModal = ({modalHandler,modal}) => {
                             }
                         </table>
                         
+                        <button className="view-cart-button" onClick = {()=>history.push(`./cart`)}>View Cart</button>
                     </div>
-
+                        
                     
 
                 </div>

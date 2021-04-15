@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Navbar({cart}) {
+export default function Navbar() {
   const history = useHistory()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);

@@ -1,4 +1,7 @@
 const Product = require('../../models/Product')
+const Customer = require('../../models/Customer')
+const Retailer = require('../../models/Retailer')
+const Wholesaler = require('../../models/Wholesaler')
 
 const express = require('express')
 const router = express.Router()
@@ -40,13 +43,19 @@ router.post('/api/:type/stock/:id', async (req, res) => {
 
     const { quantity, name, description, price, image, category } = req.body
 
+    let user = await Customer.findOne({_id: userId}) 
+    user = user || await Retailer.findOne({_id: userId}) 
+    user = user || await Wholesaler.findOne({_id: userId})
+
+    // console.log(user)
+
     let product = await Product.findOne({name, owner: userId, ownerType})
 
     console.log(product)
     if(product)
       product['quantity'] = quantity
     else
-      product = new Product({ owner: userId, ownerType, name, description, price, image, category, quantity })
+      product = new Product({ owner: userId, ownerType, name, description, price, image, category, quantity, ownerName: user.name})
       
     await product.save()
 

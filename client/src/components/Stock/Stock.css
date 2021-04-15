@@ -1,0 +1,7 @@
+.stock-container {
+  background-color: rgb(60, 180, 60);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

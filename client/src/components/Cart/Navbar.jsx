@@ -1,10 +1,10 @@
 import React from "react";
-function Navbar(props){
+function Navbar({cartTotal}){
     return (
         <div style={styles.nav}>
             <div style={styles.cartIconContainer}>
                 <img style={styles.cartIcon} src="https://image.flaticon.com/icons/png/128/1170/1170627.png" />
-                <span onClick={props.count} style={styles.cartCount}>{props.count()}</span>
+                <span style={styles.cartCount}>{cartTotal}</span>
             </div>
         </div>
     );

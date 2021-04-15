@@ -107,9 +107,12 @@ router.patch('/api/:type/cart/:id', async (req, res) => {
 
     const { productId, quantity } = req.body
 
+    if(quantity < 0)
+      return res.status(400).send({error: "Cannot remove more items"})
+
     const product = await Product.findOne({_id: productId})
     const cartItem = await Cart.findOne({ owner: buyerId, ownerType, productId })
-    
+  
 
     console.log("Product = ",cartItem)
     if(cartItem["quantity"] <= product.quantity)
@@ -123,20 +126,20 @@ router.patch('/api/:type/cart/:id', async (req, res) => {
   }
   catch(e){
     console.log("Error",e)
-    res.status(403).send()
+    res.status(400).send()
   }
 })
 
 // Delete Item from Cart // Retailer, Wholesaler
 router.delete('/api/:type/cart/:id', async(req, res) => {
   try {
-    const type = req.params.type
+    const ownerType = req.params.type
     const buyerId = req.params.id
 
-    const { product } = req.body
+    const { productId } = req.body
 
-    const cartItem = await Cart.findOneAndDelete({ owner: buyerId, type, product })
-
+    const cartItem = await Cart.findOneAndDelete({ owner: buyerId, ownerType, productId })
+    
     res.send(cartItem)
   } catch (error) {
     res.status(400).send()

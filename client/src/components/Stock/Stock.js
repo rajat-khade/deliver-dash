@@ -1,0 +1,33 @@
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+
+import StockList from './StockList'
+
+import './Stock.css'
+
+const Stock = ({ type, id }) => {
+
+  const [products, setProducts] = useState([])
+
+  const getStockItems = async () => {
+    try {
+      const stockItems = await axios({ url: `/api/${type}/stock/${id}`, baseURL: 'http://localhost:5000' })
+      setProducts([...stockItems.data])
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(() => {
+    console.log('Stock')
+    getStockItems()
+  }, [])
+
+  return (
+    <div className='stock-container'>
+      <StockList products={products} />
+    </div>
+  )
+}
+
+export default Stock
