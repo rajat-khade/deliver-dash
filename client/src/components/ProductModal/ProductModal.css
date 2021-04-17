@@ -11,18 +11,25 @@
     flex-direction: column;
     border: 2px solid #00000250;
 }
-
+.modal-content {
+    padding: 18% 5% 4%;
+}
 .view-cart-button {
     cursor: pointer;
     border: 0;
+    border-radius: 5px;
     margin-top: auto;
-    margin: auto auto 0 auto;
+    margin: auto auto 4% auto;
     width: 50%;
-    background-color: white;
+    height: 4rem;
+    background-image: linear-gradient(to bottom, #222831, #393e46, #222831);
     transition: 0.2s ease-in-out;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: white;
 }
 
 .view-cart-button:hover {
-    background-color: yellow;
+    opacity: 0.75;
 
 }

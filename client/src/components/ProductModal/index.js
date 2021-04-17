@@ -75,7 +75,7 @@ const ProductModal = ({modalHandler,modal}) => {
                     <div style={{width:'50%',height:'100%',display:'flex',alignItems:'center',backgroundColor:'white', borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px',borderRight:'2px solid black'}}>
                         <div style={{width:'100%',height:'60%',background: `url(${modal.image}) no-repeat`, backgroundSize:"100% 100%", borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px'}}></div>
                     </div>
-                    <div style={{width:'50%',height:'100%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
+                    <div className="modal-content" style={{width:'50%',height:'100%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
                         <h1>{modal.name}</h1>
                         <h2>{modal.description}</h2>
                         <div>{modal.price}</div>
@@ -166,7 +166,7 @@ const ProductModal = ({modalHandler,modal}) => {
                             }
                         </table>
                         
-                        <button className="view-cart-button" onClick = {()=>history.push(`./cart`)}>View Cart</button>
+                        <button className="view-cart-button" onClick = {()=>history.push(`./cart`)}>Cart</button>
                     </div>
                         
                     

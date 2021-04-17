@@ -33,20 +33,23 @@ const Dashboard = () => {
             <div>           
             {modal && <ProductModal modalHandler = {modalHandler} modal = {modal}/>}
             <Navbar />
-            <Advertise />
-            <ItemList type = {user.type} category={'Batsman'} modalHandler = {modalHandler}/>
-            <Features />
-            <Advertise />
+            <Advertise image={'./images/1.png'} />
             <ItemList type = {user.type} category={'Fruits'} modalHandler = {modalHandler}/>
             <Features />
-            <Advertise />
+            <Advertise image={'./images/veggies.png'} />
             <ItemList type = {user.type} category={'Vegetables'} modalHandler = {modalHandler}/>
             <Features />
-            <Advertise />
+            <Advertise image={'./images/groceries.png'} />
+            <ItemList type = {user.type} category={'Groceries'} modalHandler = {modalHandler}/>
+            <Features />
+            <Advertise image={'./images/beverages.png'} />
             <ItemList type = {user.type} category={'Beverages'} modalHandler = {modalHandler}/>
             <Features />
-            <Advertise />
-            <ItemList type = {user.type} category={'Packed food'} modalHandler = {modalHandler}/>
+            <Advertise image={'./images/meat.png'} />
+            <ItemList type = {user.type} category={'Processed foods'} modalHandler = {modalHandler}/>
+            <Features />
+            <Advertise image={'./images/snacks.jpg'} />
+            <ItemList type = {user.type} category={'Snacks'} modalHandler = {modalHandler}/>
             <Features />
         </div>
     )

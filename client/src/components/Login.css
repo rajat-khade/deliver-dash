@@ -1,0 +1,25 @@
+.login-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15%;
+    background-color: #f3f4ed;
+background-image: url("https://www.transparenttextures.com/patterns/low-contrast-linen.png");
+}
+.input {
+    width: 30rem;
+    height: 5rem;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.3rem;
+    border: none;
+}
+.login-button {
+    width: 30rem;
+    height: 5rem;
+    margin: 0 auto;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: white;
+    background-image: linear-gradient(to bottom, #222831, #393e46, #222831);
+}
