@@ -17,7 +17,7 @@ const Dashboard = () => {
     }
 
     useEffect( async () => {
-        let authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth")
+        let authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth") || localStorage.getItem("delivery-auth")
         
         let userDecoded = jwt_decode(JSON.parse(authToken).token)
         let buyerId = userDecoded.user.id

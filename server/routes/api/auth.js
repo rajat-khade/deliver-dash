@@ -1,6 +1,7 @@
 const Customer = require('../../models/Customer')
 const Retailer = require('../../models/Retailer')
 const Wholesaler = require('../../models/Wholesaler')
+const Delivery = require('../../models/Delivery')
 
 const config = require('config')
 
@@ -41,6 +42,14 @@ router.post('/api/signup', async (req, res) => {
       user = new Wholesaler({ name, email, password, location, type })
     }
 
+    if (type === 'Delivery') {
+      user = await Delivery.findOne({ email })
+      if (user)
+        res.status(400).send('Delivery account already exists')
+      
+      user = new Delivery({ name, email, password, location, type })
+    }
+
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(password, salt)
 
@@ -61,6 +70,7 @@ router.get('/api/getuser/:id', async (req,res) => {
     let user = await Customer.findOne({_id: userId}) 
     user = user || await Retailer.findOne({_id: userId}) 
     user = user || await Wholesaler.findOne({_id: userId})
+    user = user || await Delivery.findOne({_id: userId})
     
     res.status(200).send(user)
   }
@@ -156,6 +166,10 @@ router.post('/api/:type/login', async (req, res) => {
 
     if(req.params.type === "wholesaler"){
       user = await Wholesaler.findOne({ email })
+    }
+
+    if(req.params.type === "delivery"){
+      user = await Delivery.findOne({ email })
     }
 
 
