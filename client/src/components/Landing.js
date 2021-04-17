@@ -8,8 +8,9 @@ const Landing = () => {
             <button onClick = {()=>history.push("/customer/login")} >Customer Login</button>
             <button onClick = {()=>history.push("/retailer/login")} >Retailer Login</button>
             <button onClick = {()=>history.push("/wholesaler/login")} >Wholesaler Login</button>
+
         </div>
     )
 }
 
-export default Landing
+export default Landing;

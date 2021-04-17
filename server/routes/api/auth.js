@@ -61,7 +61,7 @@ router.get('/api/getuser/:id', async (req,res) => {
     let user = await Customer.findOne({_id: userId}) 
     user = user || await Retailer.findOne({_id: userId}) 
     user = user || await Wholesaler.findOne({_id: userId})
-    
+    // console.log(user)
     res.status(200).send(user)
   }
   catch(e){

@@ -1,4 +1,7 @@
 const Product = require('../../models/Product')
+const Retailer = require('../../models/Retailer')
+const Wholesaler = require('../../models/Wholesaler')
+const Customer = require('../../models/Customer')
 
 const express = require('express')
 const router = express.Router()
@@ -6,13 +9,11 @@ const router = express.Router()
 // View all products which can be bought // Customer, Retailer
 router.get('/api/:type/products', async (req, res) => {
   try {
-    const buyerType = req.params.type
-    const category = req.query.category
+    const userType = req.params.type
 
     let ownerType
-
     if(buyerType==="Customer")
-      ownerType = "Retailer"
+    ownerType = "Retailer"
     else
       ownerType = "Wholesaler"
     
@@ -63,6 +64,7 @@ router.patch('/api/:type/products/:id', async (req, res) => {
     console.log("Error",e)
   }
 })
+
 
 
 

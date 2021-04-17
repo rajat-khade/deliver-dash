@@ -10,7 +10,7 @@ const Item = ({ product, modalHandler }) => {
       }} className='item-container' style={{cursor:'pointer'}}>
       <div className='item-contents'>
         <div className='item-image'>
-          <div style={{background: `url(${product.image}) no-repeat`, backgroundSize: '100% 100%', width: '100%', height: '100%', borderRadius: '10px'}} />
+          <div style={{background: `url(${product.image}) no-repeat`, backgroundSize: '100% 100%', width: '100%', height: '100%', borderRadius: '3px'}} />
         </div>
         <div className='item-details'>
           <div className='item-name'>
