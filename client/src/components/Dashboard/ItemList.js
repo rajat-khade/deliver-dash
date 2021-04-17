@@ -7,14 +7,14 @@ const ItemList = ({ type, category, modalHandler }) => {
   const [products, setProducts] = useState([])
 
   useEffect(async () => {
-    let productList = await axios({ url: `/api/${type}/products`, baseURL: 'http://localhost:5000' })
+    let productList = await axios({ url: `/api/${type}/products?category=${category}`, baseURL: 'http://localhost:5000' })
 
     setProducts([...productList.data])
   }, [])
 
   
   return (
-    <div style={{display: 'flex'}}>
+    <div style={{display: 'flex',justifyContent: 'center'}}>
       {products.map((product) => {
         return <Item product={product} modalHandler = {modalHandler}/>
       })}

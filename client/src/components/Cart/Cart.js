@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import CartItem from './CartItem'
 
 const Cart = ({ type, id, cartTotal, setCartTotal }) => {
-    console.log(type,id)
   const [products, setProducts] = useState([])
   const [forceRenderCart, setForceRenderCart] = useState(true);
   const [loaded, setLoaded] = useState(false)
@@ -20,7 +19,6 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
         cartProducts.push({...data, quantity: item.quantity})
         cartTotal += item.quantity
         setCartTotal(cartTotal)
-        console.log(cartProducts)
       }
       setProducts(cartProducts)
       setLoaded(true)
@@ -41,9 +39,7 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
             display: 'flex', 
             flexDirection: 'column',
         }}>
-        {console.log("Sayantan",products.length)}
       {loaded && products.map((product, index) =>{
-              console.log(product)
               return <CartItem
               product={product}
               key={index}

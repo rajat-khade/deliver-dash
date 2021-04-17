@@ -36,6 +36,18 @@ const Dashboard = () => {
             <Advertise />
             <ItemList type = {user.type} category={'Batsman'} modalHandler = {modalHandler}/>
             <Features />
+            <Advertise />
+            <ItemList type = {user.type} category={'Fruits'} modalHandler = {modalHandler}/>
+            <Features />
+            <Advertise />
+            <ItemList type = {user.type} category={'Vegetables'} modalHandler = {modalHandler}/>
+            <Features />
+            <Advertise />
+            <ItemList type = {user.type} category={'Beverages'} modalHandler = {modalHandler}/>
+            <Features />
+            <Advertise />
+            <ItemList type = {user.type} category={'Packed food'} modalHandler = {modalHandler}/>
+            <Features />
         </div>
     )
     }

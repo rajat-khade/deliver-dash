@@ -3,6 +3,7 @@ import Cart from "./Cart";
 import Navbar from "./Navbar"
 import jwt_decode from "jwt-decode"
 import axios from "axios"
+import Map from "../Map"
 
 const CartSplash = () => {
 
@@ -75,6 +76,7 @@ const CartSplash = () => {
   return (
     <div className="cart-container">
       <Navbar cartTotal = {cartTotal}/>
+      <Map />
       <Cart 
         type = {user.type}
         id={user._id}
