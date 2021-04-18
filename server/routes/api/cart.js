@@ -1,5 +1,9 @@
 const Product = require('../../models/Product')
 const Cart = require('../../models/Cart')
+const Order = require('../../models/Order')
+const Retailer = require('../../models/Retailer')
+const Wholesaler = require('../../models/Wholesaler')
+const Customer = require('../../models/Customer')
 
 const config = require('config')
 
@@ -19,41 +23,55 @@ router.get('/api/:type/cart/:id', async(req, res) => {
 })
 
 // Order all items in the cart
-
+// req.body = deliveryDate, deliveryboyID
 router.patch('/api/:type/buy/:id', async (req, res) => {
 
   try {
-    const ownerType = req.params.type
+    const buyerType = req.params.type
     const buyerId = req.params.id
 
-    const cartItems = await Cart.find({ owner: buyerId, ownerType })
+    const { deliveryGuy } = req.body
+    
+    const deliveryDate = new Date()
+    deliveryDate.setDate(24)
 
+    const cartItems = await Cart.find({ owner: buyerId, ownerType: buyerType })
     for (let i = 0; i < cartItems.length; i++) {
+      
       const buyingQty = cartItems[i].quantity
+      const productId = cartItems[i].productId
 
-      const { productId } = cartItems[i]
-
-      const product = await Product.findOne({ _id: productId })
-      
-      // const sellerId = product.owner
-      // const sellingQty = product.quantity
-      
-      const { name, description, price, image, category } = product
+      // Product
+      let product = await Product.findOne({ _id: productId })
+      const { name, description, price, image, category, owner: sellerId } = product
       
       // Seller
+      let seller
+      if (buyerType === 'Customer')
+        seller = await Retailer.findOne({ _id: sellerId })
+
+      if (buyerType === 'Retailer')
+        seller = await Wholesaler.findOne({ _id: sellerId })
+        
       product['quantity'] = product['quantity'] - buyingQty
-      
       await product.save()
-      // Buyer
-      let buyerProduct = await Product.findOne({ name, ownerType })
       
+      // Buyer
+      let buyer
+      if (buyerType === 'Customer')
+        buyer = await Customer.findOne({ _id: buyerId })
+
+      if (buyerType === 'Retailer')
+        buyer = await Retailer.findOne({ _id: buyerId })
+      
+      let buyerProduct = await Product.findOne({ name, ownerType: buyerType })
       
       if (buyerProduct)
         buyerProduct['quantity'] += buyingQty
       else{
         buyerProduct = new Product({
           owner: buyerId,
-          ownerType,
+          ownerType: buyerType,
           name, 
           description,
           price,
@@ -63,9 +81,21 @@ router.patch('/api/:type/buy/:id', async (req, res) => {
         })
       }
       
-      
-        await buyerProduct.save()
-        console.log("here", buyerProduct)
+      await buyerProduct.save()
+
+      // Order
+      const order = new Order({ 
+        delivered: false, 
+        from: seller.location, 
+        to: buyer.location, 
+        fromId: sellerId,
+        toId: buyerId,
+        date: deliveryDate,
+        transaction: buyingQty * price, 
+        deliveryGuyId: deliveryGuy[productId.toString()]
+      })
+
+      await order.save()
     }
 
 

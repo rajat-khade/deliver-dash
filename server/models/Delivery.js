@@ -21,11 +21,8 @@ const DeliverySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  amountPayable: {
-    type: Number,
-  },
-  status: {
-    default: false,
+  available: {
+    default: true,
     type: Boolean
   }
 })
