@@ -2,8 +2,9 @@ import React from "react";
 function Navbar({cartTotal}){
     return (
         <div style={styles.nav}>
+            <h2 style={{marginRight:'85%',color:'white',fontWeight:'600'}}>LiveMart</h2>
             <div style={styles.cartIconContainer}>
-                <img style={styles.cartIcon} src="https://image.flaticon.com/icons/png/128/1170/1170627.png" />
+                <i class="fas fa-shopping-cart fa-2x" style={styles.cartIcon}></i>
                 <span style={styles.cartCount}>{cartTotal}</span>
             </div>
         </div>
@@ -13,25 +14,28 @@ export default Navbar;
 
 const styles = {
     cartIcon: {
+        color: 'white',
         height: 32,
         marginRight: 30
     },
     nav: {
         height: 70,
-        background: "#4267b2",
+        background: "#000",
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",
-        marginTop: 0
+        marginTop: 0,
+        marginBottom: 0
     },
     cartIconContainer: {
         position: "relative"
     },
     cartCount: {
-        background: "yellow",
-        borderRadius: "50%",
-        marginRight: 10,
+        background: "#f4f3f3",
+        borderRadius: "60%",
+        marginRight: 7,
         padding: "4px 8px",
+        fontWeight: 600,
         position: "absolute",
         right: 0,
         top: -9
