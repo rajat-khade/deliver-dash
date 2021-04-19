@@ -4,8 +4,9 @@ import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
 import axios from "axios"
 import { geocode } from './geocode.js'
 
-const Map = () => {  
+const Map = ({markerLocs}) => {  
 
+    console.log(markerLocs,"sayantan")
   const genRoute = async (loc1,loc2) => {
     let lat1 = loc1.getLngLat().lat
     let long1 = loc1.getLngLat().lng
@@ -40,50 +41,59 @@ const Map = () => {
           zoom: 13 // starting zoom
         });
     
-        var seaWoodsMall = new mapboxgl.Marker({
-            scale: 0.8
-        })
-        .setLngLat([73.01832995312378,19.02141076598357])
-        .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>SeaWoods Mall</h6>"))
-        .addTo(map);
-        var mcDonalds = new mapboxgl.Marker({
-            scale: 0.8
-        })
-        .setLngLat([73.022456477622,19.02464620334787])
-        .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>McDonalds</h6>"))
-        .addTo(map);
-        var bakerBliss = new mapboxgl.Marker({
-            scale: 0.8
-        })
-        .setLngLat([73.02314595100137,19.0279139183061])
-        .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Baker Bliss</h6>"))
-        .addTo(map);
-        var Dominos = new mapboxgl.Marker({
-            scale: 0.8
-        })
-        .setLngLat([73.00864055013385,19.0439967694349])
-        .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Dominos</h6>"))
-        .addTo(map);
-        var PrimeMall = new mapboxgl.Marker({
-            scale: 0.8
-        })
-        .setLngLat([73.06371562837627,19.039812599821804])
-        .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Prime Mall</h6>"))
-        .addTo(map);
-        var littleWorld = new mapboxgl.Marker({
-            scale: 0.8
-        })
-        .setLngLat([73.06624029085143,19.030856912826778])
-        .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Little World</h6>"))
-        .addTo(map);
+        // var seaWoodsMall = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.01832995312378,19.02141076598357])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>SeaWoods Mall</h6>"))
+        // .addTo(map);
+        // var mcDonalds = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.022456477622,19.02464620334787])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>McDonalds</h6>"))
+        // .addTo(map);
+        // var bakerBliss = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.02314595100137,19.0279139183061])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Baker Bliss</h6>"))
+        // .addTo(map);
+        // var Dominos = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.00864055013385,19.0439967694349])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Dominos</h6>"))
+        // .addTo(map);
+        // var PrimeMall = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.06371562837627,19.039812599821804])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Prime Mall</h6>"))
+        // .addTo(map);
+        // var littleWorld = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.06624029085143,19.030856912826778])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Little World</h6>"))
+        // .addTo(map);
     
-        var shoppingPlaza = new mapboxgl.Marker({
-            scale: 0.8
-        })
-        .setLngLat([73.04165723601213,19.02404242610254])
-        .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Shopping Plaza</h6>"))
-        .addTo(map);
+        // var shoppingPlaza = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.04165723601213,19.02404242610254])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Shopping Plaza</h6>"))
+        // .addTo(map);
         
+        console.log(markerLocs)
+        markerLocs.forEach((loc)=>{
+            let t = new mapboxgl.Marker({
+                scale: 0.8
+            })
+            .setLngLat([loc[0],loc[1]])
+            .setPopup(new mapboxgl.Popup().setHTML(`<h6 style='color:#818181;padding:5px'>${loc[2]}</h6>`))
+            .addTo(map);
+        })
 
         let productList = await axios({ url: `/api/Customer/products?category=Fruits`, baseURL: 'http://localhost:5000' })
         let retailerList = []
@@ -101,49 +111,49 @@ const Map = () => {
             geocode(owner.data.location, (error, { latitude, longitude, location }) => {
                 console.log(location)
     
-                let marker = new mapboxgl.Marker({
-                    scale: 0.8
-                })
-                .setLngLat([longitude,latitude])
-                .setPopup(new mapboxgl.Popup().setHTML(`<h6 style='color:#818181;padding:5px'>${owner.data.name}</h6>`))
-                .addTo(map);
+                // let marker = new mapboxgl.Marker({
+                //     scale: 0.8
+                // })
+                // .setLngLat([longitude,latitude])
+                // .setPopup(new mapboxgl.Popup().setHTML(`<h6 style='color:#818181;padding:5px'>${owner.data.name}</h6>`))
+                // .addTo(map);
             })
         }
     
-        const route = await genRoute(PrimeMall, seaWoodsMall)
-        const route2 = await genRoute(seaWoodsMall,Dominos)
-        map.on('load', function () {
-            map.addSource('route', {
-            'type': 'geojson',
-            'data': {
-            'type': 'Feature',
-            'properties': {},
-            'geometry': {
-            'type': 'LineString',
-            'coordinates': [...route,...route2]
-            }
-            }
-            });
-            map.addLayer({
-            'id': 'route',
-            'type': 'line',
-            'source': 'route',
-            'layout': {
-            'line-join': 'round',
-            'line-cap': 'round'
-            },
-            'paint': {
-            'line-color': '#888',
-            'line-width': 8
-            }
-            });
-            });
+        // const route = await genRoute(PrimeMall, seaWoodsMall)
+        // const route2 = await genRoute(seaWoodsMall,Dominos)
+        // map.on('load', function () {
+        //     map.addSource('route', {
+        //     'type': 'geojson',
+        //     'data': {
+        //     'type': 'Feature',
+        //     'properties': {},
+        //     'geometry': {
+        //     'type': 'LineString',
+        //     'coordinates': [...route,...route2]
+        //     }
+        //     }
+        //     });
+        //     map.addLayer({
+        //     'id': 'route',
+        //     'type': 'line',
+        //     'source': 'route',
+        //     'layout': {
+        //     'line-join': 'round',
+        //     'line-cap': 'round'
+        //     },
+        //     'paint': {
+        //     'line-color': '#888',
+        //     'line-width': 8
+        //     }
+        //     });
+        //     });
     }    
 
     genMarker()
 
     
-  }, [])
+  }, [markerLocs])
 
   // extra part
   

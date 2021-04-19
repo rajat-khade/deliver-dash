@@ -3,6 +3,7 @@ const connectDB = require('../config/db')
 const { urlencoded } = require('body-parser')
 const authRoute = require('./routes/api/auth.js')
 const productsRoute = require('./routes/api/products.js')
+const usersRoute = require('./routes/api/users.js')
 const cartRoute = require('./routes/api/cart.js')
 const stockRoute = require('./routes/api/stock.js')
 
@@ -17,6 +18,7 @@ app.use(express.json({ extended: false }))
 
 app.use(authRoute)
 app.use(productsRoute)
+app.use(usersRoute)
 app.use(cartRoute)
 app.use(stockRoute)
 

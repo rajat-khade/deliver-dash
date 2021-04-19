@@ -4,18 +4,19 @@ import jwt_decode from "jwt-decode";
 import "./ProductModal.css"
 import { useHistory } from 'react-router';
 
+import Map from '../Map'
+
 
 const ProductModal = ({modalHandler,modal}) => {
     
     const [retailerInfo, setRetailerInfo] = useState([])
     const [itemsInCart, setItemsInCart] = useState({})
     const [forceRerender, setForceRerender] = useState(true);
+    const [markerLocs, setMarkerLocs] = useState([])
 
     const history = useHistory()
     let authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth")
     
-    // console.log(jwt_decode(authToken.token))
-    // console.log(typeof authToken,"yeh hai")
     let user = jwt_decode(JSON.parse(authToken).token)
     let buyerId = user.user.id
     // let buyerId = "234320"
@@ -26,41 +27,50 @@ const ProductModal = ({modalHandler,modal}) => {
     else    
         buyerType = "Retailer"
 
-    console.log(buyerType, buyerId)
     useEffect(async () => {
         
-        let data = await axios({ url: `/api/${buyerType}/products`, baseURL: 'http://localhost:5000' })
+        let products = await axios({ url: `/api/${buyerType}/products`, baseURL: 'http://localhost:5000' })
         let cart = await axios({ url: `/api/${buyerType}/cart/${buyerId}`, baseURL: 'http://localhost:5000' })
         let incart = {}
-        let retArray = []
-
-
-        console.log("data =",data)
-        console.log("CART",cart)
+        let mlocs = []
+        let sellerList = []
 
         let cartQuantity = {}
         cart.data.forEach((item)=>{
             cart[item.productId] = item.quantity
         })
 
-
-        data.data.forEach((product)=>{
+        for (let i = 0; i < products.data.length; i++) {
+					
+            let product = products.data[i]
             if(product.name !== modal.name)
-                return
+                continue
 
-            let retData = {}
-            retData.name = product.ownerName
-            retData.price = product.price
-            retData.quantity = product.quantity
-            retData.productId = product._id
+            let sellerData = {}
+            sellerData.name = product.ownerName
+            sellerData.price = product.price
+            sellerData.quantity = product.quantity
+            sellerData.productId = product._id
+            
+            const { data : seller } = await axios({ url: `/api/getuser/${product.owner}`, baseURL: 'http://localhost:5000' })
+            const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+ encodeURIComponent(seller.location) + '.json?access_token=pk.eyJ1IjoiaG9wZS1zY290Y2giLCJhIjoiY2tiaHduYnRlMDlsOTJxbWJsMTg5aHlsOSJ9.S92DKT4JNJ8jkzD4KQdsGw&limit=1'
+
+            const {data : coordinates} = await axios({ url: url })
+            let lat = coordinates.features[0].center[1]
+            let long = coordinates.features[0].center[0]
+            let loc = coordinates.features[0].place_name
+            
+            // console.log(markerLocs)
+            mlocs.push([long,lat,loc])
             
             incart[product.ownerName] = cart[product._id] || 0
-            retArray.push(retData)
-        })
-
-        setRetailerInfo(retArray)
+            sellerList.push(sellerData)
+        }
+        
+        setMarkerLocs(mlocs)
+        setRetailerInfo(sellerList)
         setItemsInCart(incart)
-        console.log(retArray)
+        console.log(sellerList)
       }, [modal])
 
     return (
@@ -72,9 +82,21 @@ const ProductModal = ({modalHandler,modal}) => {
                 </button>
 
                 <div style={{width:'100%',height:'100%',display:'flex'}}>
-                    <div style={{width:'50%',height:'100%',display:'flex',alignItems:'center',backgroundColor:'white', borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px',borderRight:'2px solid black'}}>
+                    <div 
+                        style={{
+                            width:'50%',
+                            height:'100%',
+                            display:'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems:'center',
+                            backgroundColor:'white', 
+                            borderTopLeftRadius:'10px',
+                            borderBottomLeftRadius:'10px',
+                            borderRight:'2px solid black'}}>
                         <div style={{width:'100%',height:'60%',background: `url(${modal.image}) no-repeat`, backgroundSize:"100% 100%", borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px'}}></div>
-                    </div>
+						<Map markerLocs = {markerLocs}/>
+					</div>
                     <div style={{width:'50%',height:'100%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
                         <h1>{modal.name}</h1>
                         <h2>{modal.description}</h2>

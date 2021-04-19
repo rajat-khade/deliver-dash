@@ -42,31 +42,26 @@ router.get('/api/products/:id', async (req, res) => {
   }
 })
 
-// Order product // Customer, Retailer
-router.patch('/api/:type/products/:id', async (req, res) => {
+router.get('/api/search', async (req, res) => {
+  const term = req.query.term
+
   try {
-    // const sellerType = req.params.type
-    // const buyerId = req.params.id
-    // const { sellerId, quantity, productId } = req.body
+    const regex =  new RegExp(term,'i');
+    const products = await Product.find({ "name": regex })
+    // products = JSON.parse(products)
 
-    // const product = await Product.findOne({ _id: productId, owner: buyerId })
+    // const results = products.filter((product) => {
+    //   return product.name.match(`/${term}/i`).length > 0
+    // })
 
-    // if (product)
-    //   product['quantity'] += quantity
-    // else
-    //   await new Product({ })
+    if (products.length === 0)
+      products = 'No item available' 
 
-    await product.save()
+    res.status(200).send(products)
 
-    res.status(200)
-  } catch (e) {
-    console.log("Error",e)
+  } catch(e) {
+    res.status(400).send()
   }
 })
 
-
-
 module.exports = router
-
-
-
