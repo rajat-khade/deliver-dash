@@ -168,7 +168,6 @@ router.post('/api/:type/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password)
 
     if (!isMatch){
-      console.log(password,user.password)
       res.status(400).send('Invalid Credentials')
     }
 

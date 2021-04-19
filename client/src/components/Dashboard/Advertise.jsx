@@ -4,7 +4,7 @@ import "./Advertise.css"
 function Advertise(props){
     return (
         <div className="picture-div">
-            <img className="picture" src={require("./images/groceries.png").default} alt="" />
+            <img className="picture" src={props.image} alt="" />
         </div>
     );
 }

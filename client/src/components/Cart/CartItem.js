@@ -86,25 +86,27 @@ const CartItem = ({ product, type, id, forceRenderCart, setForceRenderCart, cart
             <div className='cart-item-price'>&#8377; {product.price}</div>
             <div className='cart-item-divider' />
             <div className='cart-item-quantity-container'>
-              <img 
+            <i  style={{color:'white'}}  
                 alt="increase" 
                 className="action-icons" 
                 onClick={() => onIncrease()}
-                src="https://t4.ftcdn.net/jpg/01/07/62/07/240_F_107620769_UwNVSoXnKS4VNcOKoZjPohlEPn83oE38.jpg" />
+                class="fas fa-plus-circle"></i>
               
               <div className='cart-item-quantity'>{product.quantity}</div>
               
-              <img 
+              <i style={{color:'white'}}  
                 alt="decrease" 
                 className="action-icons" 
                 onClick={() => onDecrease()}
-                src="https://t3.ftcdn.net/jpg/03/73/49/86/240_F_373498649_nBxauQ0ipBSVrVcMpWWVmTpXu3BLvRyY.jpg" />
+                class="fas fa-minus-circle"></i>
+                
               
-              <img 
+              <i style={{color:'white'}} 
                 alt="delete" 
                 className="action-icons" 
                 onClick={() => onDelete()}
-                src="https://t4.ftcdn.net/jpg/01/90/89/15/240_F_190891550_N7uKp2aHE3mOc20dmtDytj7atgvbhdOu.jpg" /> 
+                class="far fa-trash-alt"></i>
+                
             </div>
         </div>
     </div>

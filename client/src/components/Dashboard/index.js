@@ -33,22 +33,24 @@ const Dashboard = () => {
             <div>           
             {modal && <ProductModal modalHandler = {modalHandler} modal = {modal}/>}
             <Navbar />
-            <Advertise image={'./images/1.png'} />
+            <div style={{marginTop:-60}}>
+                <Advertise image={'/images/1.png'} />
+            </div>
             <ItemList type = {user.type} category={'Fruits'} modalHandler = {modalHandler}/>
             <Features />
-            <Advertise image={'./images/veggies.png'} />
+            <Advertise image={'/images/veggies.png'} />
             <ItemList type = {user.type} category={'Vegetables'} modalHandler = {modalHandler}/>
             <Features />
-            <Advertise image={'./images/groceries.png'} />
+            <Advertise image={'/images/groceries.png'} />
             <ItemList type = {user.type} category={'Groceries'} modalHandler = {modalHandler}/>
             <Features />
-            <Advertise image={'./images/beverages.png'} />
+            <Advertise image={'/images/beverages.png'} />
             <ItemList type = {user.type} category={'Beverages'} modalHandler = {modalHandler}/>
             <Features />
-            <Advertise image={'./images/meat.png'} />
+            <Advertise image={'/images/meat.png'} />
             <ItemList type = {user.type} category={'Processed foods'} modalHandler = {modalHandler}/>
             <Features />
-            <Advertise image={'./images/snacks.jpg'} />
+            <Advertise image={'/images/snacks.jpg'} />
             <ItemList type = {user.type} category={'Snacks'} modalHandler = {modalHandler}/>
             <Features />
         </div>
