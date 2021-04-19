@@ -1,16 +1,21 @@
 import CustomerAuth from "./containers/CustomerAuth";
 import RetailerAuth from "./containers/RetailerAuth";
 import WholesalerAuth from "./containers/WholesalerAuth";
-// import Customer from "./components/Customer";
+import DeliveryAuth from "./containers/DeliveryAuth";
 import LandingRoutes from "./components/LandingRoutes";
 
 const App = () => {
+
+    // localStorage.clear()
+
     return ( 
     <>
         <CustomerAuth.Provider >
             <RetailerAuth.Provider >
                 <WholesalerAuth.Provider>
-                    <LandingRoutes/>
+                    <DeliveryAuth.Provider>
+                        <LandingRoutes/>
+                    </DeliveryAuth.Provider>
                 </WholesalerAuth.Provider> 
             </RetailerAuth.Provider> 
         </CustomerAuth.Provider>

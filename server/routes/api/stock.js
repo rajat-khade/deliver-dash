@@ -53,7 +53,7 @@ router.post('/api/:type/stock/:id', async (req, res) => {
 
     console.log(product)
     if(product)
-      product['quantity'] = quantity
+      product['quantity'] += parseInt(quantity)
     else
       product = new Product({ owner: userId, ownerType, name, description, price, image, category, quantity, ownerName: user.name})
       

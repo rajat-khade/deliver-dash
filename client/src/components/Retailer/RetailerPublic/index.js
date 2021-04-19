@@ -8,8 +8,9 @@ const RetailerPublic = () => {
 
     const customerLoggedIn = localStorage.getItem("customer-auth")
     const wholesalerLoggedIn = localStorage.getItem("wholesaler-auth")
+    const deliveryLoggedIn = localStorage.getItem("delivery-auth")
 
-    if(customerLoggedIn || wholesalerLoggedIn)
+    if(customerLoggedIn || wholesalerLoggedIn || deliveryLoggedIn)
         return <h1>Not Authorized</h1>
 
     return (

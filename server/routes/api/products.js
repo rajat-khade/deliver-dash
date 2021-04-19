@@ -13,7 +13,7 @@ router.get('/api/:type/products', async (req, res) => {
 
     if(buyerType==="Customer")
       ownerType = "Retailer"
-    else
+    else if(buyerType === "Retailer")
       ownerType = "Wholesaler"
     
     let products = []
