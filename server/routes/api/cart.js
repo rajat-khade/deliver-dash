@@ -26,6 +26,10 @@ router.get('/api/:type/cart/:id', async(req, res) => {
 // req.body = deliveryDate, deliveryboyID
 router.patch('/api/:type/buy/:id', async (req, res) => {
 
+  let sellerLocs = {}
+  let productGroups = {}
+  let transaction = {}
+
   try {
     const buyerType = req.params.type
     const buyerId = req.params.id
@@ -34,6 +38,14 @@ router.patch('/api/:type/buy/:id', async (req, res) => {
     
     const deliveryDate = new Date()
     deliveryDate.setDate(24)
+
+    // Buyer
+    let buyer
+    if (buyerType === 'Customer')
+      buyer = await Customer.findOne({ _id: buyerId })
+
+    if (buyerType === 'Retailer')
+      buyer = await Retailer.findOne({ _id: buyerId })
 
     const cartItems = await Cart.find({ owner: buyerId, ownerType: buyerType })
     for (let i = 0; i < cartItems.length; i++) {
@@ -52,17 +64,17 @@ router.patch('/api/:type/buy/:id', async (req, res) => {
 
       if (buyerType === 'Retailer')
         seller = await Wholesaler.findOne({ _id: sellerId })
-        
+
+      if(productGroups.hasOwnProperty(sellerId))
+        productGroups[sellerId].push(product)
+      else
+        productGroups[sellerId] = [product]
+
+
+      sellerLocs[sellerId] = seller.location      
+
       product['quantity'] = product['quantity'] - buyingQty
       await product.save()
-      
-      // Buyer
-      let buyer
-      if (buyerType === 'Customer')
-        buyer = await Customer.findOne({ _id: buyerId })
-
-      if (buyerType === 'Retailer')
-        buyer = await Retailer.findOne({ _id: buyerId })
       
       let buyerProduct = await Product.findOne({ name, ownerType: buyerType })
       
@@ -83,26 +95,38 @@ router.patch('/api/:type/buy/:id', async (req, res) => {
       
       await buyerProduct.save()
 
-      // Order
+      if(transaction.hasOwnProperty(sellerId))
+        transaction[sellerId] += (buyingQty * price)
+      else
+        transaction[sellerId] = buyingQty * price
+    }
+
+    const productList = Object.keys(productGroups)
+    
+    // console.log(productGroups)
+    let orderIds = []
+    for (let i = 0; i < productList.length; i++) {
+      const sellerId = productList[i]
+      console.log(sellerId)
       const order = new Order({ 
-        delivered: false,
-        name: product.name, 
-        from: seller.location, 
+        status: "placed",
+        productList: productGroups[sellerId], 
+        from: sellerLocs[sellerId], 
         to: buyer.location, 
         fromId: sellerId,
         toId: buyerId,
         date: deliveryDate,
-        transaction: buyingQty * price, 
-        deliveryGuyId: deliveryGuy[productId.toString()]
+        transaction: transaction[sellerId], 
+        deliveryGuyId: deliveryGuy[sellerId.toString()]
       })
-
+      
       await order.save()
+      orderIds.push(order._id)
     }
-
 
     await Cart.deleteMany({})
     
-    res.status(200).send()
+    res.status(200).send(orderIds)
 
   } catch(e) {
     res.status(400).send()
