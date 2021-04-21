@@ -1,5 +1,6 @@
 import React from 'react'
 import {useHistory} from "react-router-dom"
+import Feedback from './Feedback/Feedback.js';
 import './Landing.css'
 
 const Landing = () => {
@@ -7,7 +8,7 @@ const Landing = () => {
     return (
         <div className="landing-container">
             <div className="signup-form">
-
+                <Feedback />
             </div>
             <div className="buttonWraper">
             <button className="customer-button" onClick = {()=>history.push("/customer/login")} ><h4 className="button-name">Customer</h4></button>

@@ -7,6 +7,7 @@ const usersRoute = require('./routes/api/users.js')
 const cartRoute = require('./routes/api/cart.js')
 const stockRoute = require('./routes/api/stock.js')
 const ordersRoute = require('./routes/api/orders.js')
+const notifRoute = require('./routes/api/notifications.js')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(authRoute)
 app.use(productsRoute)
 app.use(usersRoute)
 app.use(cartRoute)
+app.use(notifRoute)
 app.use(stockRoute)
 app.use(ordersRoute)
 
