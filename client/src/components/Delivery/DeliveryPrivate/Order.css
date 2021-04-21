@@ -1,0 +1,32 @@
+.order-container {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 5px 0px 10px 1px;
+  margin-top: 20px;
+}
+
+.order-row-1, .order-row-2, .order-row-3, .order-row-4 {
+  height: 40px;
+  width: 90%;
+  border-bottom: 1px solid black;
+}
+
+.order-row-2, .order-row-3, .order-row-4 {
+  display: flex;
+  width: 100%;
+}
+
+.order-seller-name, .order-buyer-name {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-seller-address, .order-buyer-address {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

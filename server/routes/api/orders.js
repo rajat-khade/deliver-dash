@@ -8,8 +8,9 @@ const router = express.Router()
 router.get('/api/:id/orders', async (req, res) => {
   try {
     const deliveryGuyId = req.params.id
+    console.log(deliveryGuyId)
     
-    const orders = Order.find({ deliveryGuyId })
+    const orders = await Order.find({ deliveryGuyId })
     
     res.status(200).send(orders)
   } catch(e) {
@@ -22,7 +23,7 @@ router.get('/api/:type/orders/:id', async (req, res) => {
   try {
     const userId = req.params.id
     const type = req.params.type
-
+    
     let orders = []
 
     if (type === 'Retailer' || type === 'Wholesaler')
@@ -38,6 +39,3 @@ router.get('/api/:type/orders/:id', async (req, res) => {
 })
 
 module.exports = router
-
-
-

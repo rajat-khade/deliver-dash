@@ -44,7 +44,7 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
         let loc = coordinates.features[0].place_name
         
         // console.log(markerLocs)
-        mlocs.push([long,lat,loc])
+        mlocs.push([long,lat,loc,'#3FB1CE'])
       }
       setMarkerLocs(mlocs)
       setProducts(cartProducts)
@@ -86,14 +86,14 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
         
             
           let dist = await genDist(lat1,long1,lat2,long2)
-
+          console.log("distance",dist)
           if(dist < minDist){
             minDist = dist
             minDeliveryId = deliveryPerson._id
           }
         }
 
-        console.log(minDeliveryId,minDist)
+        console.log(minDeliveryId,"Mindist",minDist)
         deliveryGuy[product._id] = minDeliveryId
       }
 

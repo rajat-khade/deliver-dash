@@ -7,6 +7,7 @@ import './Stock.css'
 
 const Stock = ({ type, id }) => {
 
+  const [editModal,setEditModal] = useState(false)
   const [products, setProducts] = useState([])
 
   const getStockItems = async () => {
@@ -25,7 +26,7 @@ const Stock = ({ type, id }) => {
 
   return (
     <div className='stock-container'>
-      <StockList products={products} />
+      <StockList products={products} setEditModal = {setEditModal} editModal = {editModal}/>
     </div>
   )
 }

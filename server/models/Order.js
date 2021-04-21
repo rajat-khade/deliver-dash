@@ -4,6 +4,9 @@ const OrderSchema = new mongoose.Schema({
   delivered: {
     type: Boolean,
   },
+  name: {
+    type: String,
+  },
   from : {
     type: String,
     required: true

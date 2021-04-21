@@ -7,8 +7,7 @@ const CustomerPrivate = () => {
     
     return ( 
         <div>
-            Customer logged in
-            <button onClick = {()=>auth.logout()}>Log Out</button>
+            {/* <button onClick = {()=>auth.logout()}>Log Out</button> */}
             <Dashboard/>
         </div>
     )

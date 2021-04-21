@@ -6,7 +6,7 @@ const Login = ({type, auth}) => {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
 
-  const loginHandler = () => {
+  const loginHandler = (e) => {
     const data = {
       email,
       password
@@ -14,6 +14,7 @@ const Login = ({type, auth}) => {
     
     console.log(data)
     auth.login(data)
+    e.preventDefault()
   }
 
 
@@ -21,7 +22,7 @@ const Login = ({type, auth}) => {
     <div className='login-container'>
       <input className='input' placeholder='Email' type='text' name='email' onChange = {(e)=>setEmail(e.target.value)}/>
       <input className='input' placeholder='Password' type='password' name='password' onChange = {(e)=>setPassword(e.target.value)}/>
-      <button className='login-button' onClick={() => loginHandler()}>{type} Login</button>
+      <button className='login-button' style={{textTransform:'capitalize'}} onClick={(e) => loginHandler(e)}>{type} Login</button>
     </div>
   )
 }

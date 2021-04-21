@@ -2,9 +2,13 @@ import React from 'react'
 
 import './StockItem.css'
 
-const StockItem = ({ product }) => {
+const StockItem = ({ product, editModal, setEditModal }) => {
   return (
-    <div className='stock-item-container'>
+    <div className='stock-item-container' onClick = {()=>{
+      setEditModal(false)
+      console.log(editModal)
+      setEditModal(product)
+    }}>
       <div className='stock-image'>
         <div style={{
           background: `url(${product.image}) no-repeat`,

@@ -95,9 +95,10 @@ const ProductModal = ({modalHandler,modal}) => {
                             borderBottomLeftRadius:'10px',
                             borderRight:'2px solid black'}}>
                         <div style={{width:'100%',height:'60%',background: `url(${modal.image}) no-repeat`, backgroundSize:"100% 100%", borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px'}}></div>
-						<Map markerLocs = {markerLocs}/>
+				
+                        <Map markerLocs = {markerLocs}/>
 					</div>
-                    <div style={{width:'50%',height:'100%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
+                    <div style={{width:'50%',height:'100%',padding:'10%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
                         <h1>{modal.name}</h1>
                         <h2>{modal.description}</h2>
                         <div>{modal.price}</div>
@@ -117,7 +118,8 @@ const ProductModal = ({modalHandler,modal}) => {
                                             <td>{retailer.price}</td>
                                             <td>
 
-                                            <img onClick = { async ()=>{
+                                            <i class="fas fa-minus-circle" 
+                                                onClick = { async ()=>{
                                                 let temp = itemsInCart
 
                                                 if(temp[retailer.name]==0)
@@ -148,11 +150,12 @@ const ProductModal = ({modalHandler,modal}) => {
                                                 }
                                                 
                                             }} 
-                                            alt="decrease" className="action-icons" src="https://t3.ftcdn.net/jpg/03/73/49/86/240_F_373498649_nBxauQ0ipBSVrVcMpWWVmTpXu3BLvRyY.jpg" height = "20px"/>
+                                            alt="decrease"></i>
                                             
                                             <span style={{margin:'0 10px'}}>{itemsInCart[retailer.name]}</span>
 
-                                            <img onClick = { async ()=>{
+                                            <i class="fas fa-plus-circle" 
+                                            onClick = { async ()=>{
                                                 let temp = itemsInCart
                                                 temp[retailer.name]++
 
@@ -178,7 +181,7 @@ const ProductModal = ({modalHandler,modal}) => {
                                                     console.log(e,"Error")
                                                 }
                                                 
-                                            }} alt="increase" className="action-icons" src="https://t4.ftcdn.net/jpg/01/07/62/07/240_F_107620769_UwNVSoXnKS4VNcOKoZjPohlEPn83oE38.jpg" height = "20px"/>
+                                            }} alt="increase"></i>
 
                                             </td>
 

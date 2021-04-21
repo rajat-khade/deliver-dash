@@ -4,33 +4,9 @@ import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
 import axios from "axios"
 import { geocode } from './geocode.js'
 
-const Map = ({markerLocs}) => {  
-
-    console.log(markerLocs,"sayantan")
-  const genRoute = async (loc1,loc2) => {
-    let lat1 = loc1.getLngLat().lat
-    let long1 = loc1.getLngLat().lng
-    let lat2 = loc2.getLngLat().lat
-    let long2 = loc2.getLngLat().lng
-    // let lat3 = loc3.getLngLat().lat
-    // let long3 = loc3.getLngLat().lng
-
-    console.log(lat1,lat2,long1,long2)
-    // console.log(loc1.getLngLat().lat, loc1.getLngLat().lng)
-    let data = await axios({ url: `/routing/1/calculateRoute/${lat1}%2C${long1}%3A${lat2}%2C${long2}/json?avoid=unpavedRoads&key=VymSTXq7CYyeq7mL4y8ejjdJNA4RXle0`, baseURL: 'https://api.tomtom.com' })
-    // const points = data.data.routes.legs.points
-    const points = data.data.routes[0].legs[0].points
-    const routes = []
-    points.forEach((point)=>{
-        routes.push([point["longitude"],point["latitude"]])
-      })
-
-    return routes
-}
+const Map = ({markerLocs, directionRoutes = []}) => {  
 
   useEffect(() => {
-    
-  
     
     const genMarker = async () => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiaG9wZS1zY290Y2giLCJhIjoiY2tiaHduYnRlMDlsOTJxbWJsMTg5aHlsOSJ9.S92DKT4JNJ8jkzD4KQdsGw';
@@ -85,10 +61,10 @@ const Map = ({markerLocs}) => {
         // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Shopping Plaza</h6>"))
         // .addTo(map);
         
-        console.log(markerLocs)
         markerLocs.forEach((loc)=>{
             let t = new mapboxgl.Marker({
-                scale: 0.8
+                scale: 0.8,
+                color: loc[3]
             })
             .setLngLat([loc[0],loc[1]])
             .setPopup(new mapboxgl.Popup().setHTML(`<h6 style='color:#818181;padding:5px'>${loc[2]}</h6>`))
@@ -120,34 +96,42 @@ const Map = ({markerLocs}) => {
             })
         }
     
-        // const route = await genRoute(PrimeMall, seaWoodsMall)
-        // const route2 = await genRoute(seaWoodsMall,Dominos)
-        // map.on('load', function () {
-        //     map.addSource('route', {
-        //     'type': 'geojson',
-        //     'data': {
-        //     'type': 'Feature',
-        //     'properties': {},
-        //     'geometry': {
-        //     'type': 'LineString',
-        //     'coordinates': [...route,...route2]
-        //     }
-        //     }
-        //     });
-        //     map.addLayer({
-        //     'id': 'route',
-        //     'type': 'line',
-        //     'source': 'route',
-        //     'layout': {
-        //     'line-join': 'round',
-        //     'line-cap': 'round'
-        //     },
-        //     'paint': {
-        //     'line-color': '#888',
-        //     'line-width': 8
-        //     }
-        //     });
-        //     });
+
+        let dRoutes = []
+        for(var i = 0; i<directionRoutes.length ; i += 10)
+          dRoutes.push(directionRoutes[i])
+
+        console.log(dRoutes)
+        if(directionRoutes.length){
+          map.on('load', function () {
+              map.addSource('route', {
+              'type': 'geojson',
+              'data': {
+              'type': 'Feature',
+              'properties': {},
+              'geometry': {
+              'type': 'LineString',
+              'coordinates': dRoutes
+              }
+              }
+              });
+
+              map.addLayer({
+              'id': 'route',
+              'type': 'line',
+              'source': 'route',
+              'layout': {
+              'line-join': 'round',
+              'line-cap': 'round'
+              },
+              'paint': {
+              'line-color': '#888',
+              'line-width': 8
+              }
+              });
+              });
+        }
+
     }    
 
     genMarker()

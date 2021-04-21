@@ -85,7 +85,8 @@ router.patch('/api/:type/buy/:id', async (req, res) => {
 
       // Order
       const order = new Order({ 
-        delivered: false, 
+        delivered: false,
+        name: product.name, 
         from: seller.location, 
         to: buyer.location, 
         fromId: sellerId,
