@@ -47,7 +47,8 @@ const Map = () => {
         .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>SeaWoods Mall</h6>"))
         .addTo(map);
         var mcDonalds = new mapboxgl.Marker({
-            scale: 0.8
+            scale: 0.8,
+            color: "blue"
         })
         .setLngLat([73.022456477622,19.02464620334787])
         .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>McDonalds</h6>"))
