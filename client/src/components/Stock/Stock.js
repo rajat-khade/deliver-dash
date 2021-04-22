@@ -26,9 +26,10 @@ const Stock = ({ type, id }) => {
 
   return (
     <div className='stock-container'>
+      <h1 style={{marginBottom: '20px', fontWeight: '600', textAlign: 'center'}}>Stock</h1>
       <StockList products={products} setEditModal = {setEditModal} editModal = {editModal}/>
     </div>
   )
 }
 
-export default Stock
+export default Stock;

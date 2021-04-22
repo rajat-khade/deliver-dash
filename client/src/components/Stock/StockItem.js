@@ -22,7 +22,7 @@ const StockItem = ({ product, editModal, setEditModal }) => {
         <div className='stock-item-name'>{product.name}</div>
         <div className='stock-item-quantity'>{product.quantity}</div>
         <div className='stock-item-price'>{product.price}</div>
-        <div className='stock-item-description'>{product.description}</div>
+        <div style={{maxWidth: '150px',textOverflow: 'ellipsis'}} className='stock-item-description'>{product.description}</div>
         <div className='stock-item-category'>{product.category}</div>
       </div>
     </div>

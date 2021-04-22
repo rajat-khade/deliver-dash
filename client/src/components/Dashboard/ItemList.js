@@ -34,7 +34,7 @@ const ItemList = ({ type, category, modalHandler, color }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: '100px 0'
+        margin: '200px 0'
       }}>
       <Fragment>
         <Carousel

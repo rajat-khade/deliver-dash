@@ -71,15 +71,15 @@ export default function Signup() {
  
 
   return (
-    <div style={{padding:'3%'}}>
-        <form className={classes.root} noValidate autoComplete="off">
-            <TextField style={{padding:'3%'}} value = {name} onChange = {(e)=>setName(e.target.value)} id="name" placeholder="Name" variant="outlined" />
-            <TextField style={{padding:'3%'}} value = {email} onChange = {(e)=>setEmail(e.target.value)} id="email" placeholder="email" variant="outlined" />
-            <TextField style={{padding:'3%'}} value = {password} onChange = {(e)=>setPassword(e.target.value)} id="password" type="password" placeholder="Password" variant="outlined" />
-            <TextField style={{padding:'3%'}} value = {confirm} onChange = {(e)=>setConfirm(e.target.value)} id="confirm" type="password" placeholder="Confirm Password" variant="outlined" />
+    <div style={{padding:'3%', alignContent: 'center'}}>
+        <form style={{display: 'flex',flexDirection: 'column',alignItems: 'center'}} className={classes.root} noValidate autoComplete="off">
+            <input style={{padding:'1%',height: '50px',textAlign: 'center',borderRadius: '5px'}} value = {name} onChange = {(e)=>setName(e.target.value)} id="name" placeholder="Name" variant="outlined" />
+            <input style={{padding:'1%',height: '50px',textAlign: 'center',borderRadius: '5px'}} value = {email} onChange = {(e)=>setEmail(e.target.value)} id="email" placeholder="email" variant="outlined" />
+            <input style={{padding:'1%',height: '50px',textAlign: 'center',borderRadius: '5px'}} value = {password} onChange = {(e)=>setPassword(e.target.value)} id="password" type="password" placeholder="Password" variant="outlined" />
+            <input style={{padding:'1%',height: '50px',textAlign: 'center',borderRadius: '5px'}} value = {confirm} onChange = {(e)=>setConfirm(e.target.value)} id="confirm" type="password" placeholder="Confirm Password" variant="outlined" />
+            <input style={{padding:'1%',height: '50px',textAlign: 'center',borderRadius: '5px'}} value = {location} onChange = {(e)=>setLocation(e.target.value)} id="location" placeholder="Location" />
             <div>{passwordError}</div>
-            <TextField style={{padding:'3%'}} value = {location} onChange = {(e)=>setLocation(e.target.value)} id="location" placeholder="Location" />
-            <div>
+            <div style={{marginTop: '10px'}}>
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Signup As</FormLabel>
                     <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>

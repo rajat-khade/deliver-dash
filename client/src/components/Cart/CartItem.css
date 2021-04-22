@@ -12,14 +12,14 @@
     justify-content: space-between;
   
     padding: 5px;
-    transition: width 0.2s, height 0.5s;
+    transition: width 0.2s, height 0.2s;
   }
   
   .cart-item-container:hover {
     cursor: pointer;
-    height: 160px;
-    width: 410px;
-    box-shadow: 5px 5px 10px 0px rgb(56, 232, 255);
+    height: 155px;
+    width: 405px;
+    box-shadow: 3px 3px 5px 0px rgb(56, 232, 255);
   }
   
   .cart-item-image-container {

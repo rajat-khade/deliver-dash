@@ -14,7 +14,8 @@ background-image: url("https://www.transparenttextures.com/patterns/shattered-da
 }
 .signup-form {
     width: 50%;
-    height: 100%;
+    height: 92vh;
+    margin-left: 40px;
     background-color: #e6e6e6;
     background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
 }
