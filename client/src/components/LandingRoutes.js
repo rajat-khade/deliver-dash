@@ -11,6 +11,7 @@ import Customer from './Customer'
 import Retailer from './Retailer'
 import Wholesaler from './Wholesaler'
 import Delivery from './Delivery'
+import Orders from './Orders'
 
 
 const LandingRoutes = () => {
@@ -27,6 +28,7 @@ const LandingRoutes = () => {
             <Switch>
                 <Route exact path = "/" component={Landing}></Route>
                 <Route exact path = "/*/cart" component={CartSplash}></Route>
+                <Route exact path = "/*/orders" component={Orders}></Route>
                 <Route exact path = "/*/stock" component={StockSplash}></Route>
                 <Route exact path = "/customer/*" component={Customer}></Route>
                 <Route exact path = "/retailer/*" component={Retailer}></Route>

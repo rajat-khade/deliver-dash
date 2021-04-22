@@ -7,8 +7,8 @@ const RetailerPrivate = () => {
     
     return ( 
         <div>
-            Retailer logged in
-            <button onClick = {()=>auth.logout()}>Log Out</button>
+            {/* Retailer logged in */}
+            {/* <button onClick = {()=>auth.logout()}>Log Out</button> */}
             <Dashboard />
         </div>
     )

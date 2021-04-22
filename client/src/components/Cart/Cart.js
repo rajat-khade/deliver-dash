@@ -5,11 +5,14 @@ import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
 import 'mapbox-gl/dist/mapbox-gl.css'
 import CartItem from './CartItem'
 import Map from '../Map.js';
+import './Cart.css'
+import { useHistory } from 'react-router';
 
 const Cart = ({ type, id, cartTotal, setCartTotal }) => {
   const [products, setProducts] = useState([])
   const [forceRenderCart, setForceRenderCart] = useState(true);
   const [loaded, setLoaded] = useState(false)
+  const history = useHistory()
   const [markerLocs, setMarkerLocs] = useState([])
 
   const genDist = async (lat1,long1,lat2,long2) => {
@@ -104,19 +107,20 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
       }
 
       body["deliveryGuy"] = deliveryGuy
-      // console.log(deliveryGuy)
       let buyCart = await axios({ method: "patch", url: `/api/${type}/buy/${id}`, baseURL: 'http://localhost:5000', data: body })
       console.log(buyCart)
 
       for(var i = 0; i<buyCart.data.length; i++){
         let body = {
           orderId: buyCart.data[i],
-          message: `Your Order with Order ID: ${buyCart.data[i]} has been placed!`
+          status: "placed"
         }
         let notification = await axios({ method: "post", url: `/api/${type}/notification/${id}`, baseURL: 'http://localhost:5000', data: body })
+        
         console.log(notification)
       }
-      setForceRenderCart(!forceRenderCart)
+      // setForceRenderCart(!forceRenderCart)
+      history.push(`/${type}/login`)
     } catch (error) {
       console.log("Error",error)
     }
@@ -129,14 +133,16 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
 
   
   return (
-    <div 
-        style={{
-            display: 'flex', 
-            flexDirection: 'column',
-        }}>
-          <Map markerLocs = {markerLocs} />
-      {loaded && products.map((product, index) =>{
-              return <CartItem
+    <div className='cart-container'>
+      <Map 
+        markerLocs = {markerLocs}
+        height = '100%'
+        width = '55%'
+        />
+      <div className='cart-items-container'>
+        <div className='cart-items'>
+          {loaded && products.map((product, index) =>{
+            return <CartItem
               product={product}
               key={index}
               type={type}
@@ -146,13 +152,13 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
               forceRenderCart = {forceRenderCart}
               setForceRenderCart = {setForceRenderCart}
               />
-            }
-            )
-        }
-
-
-
-        <button style={{backgroundColor:'yellow',marginTop:'50px'}} onClick = {orderAll}>Order All</button>
+            })
+          }
+        </div>
+        <button className='order-all-button' onClick = {orderAll}>
+          Order All
+        </button>
+      </div>
     </div>
   )
 }

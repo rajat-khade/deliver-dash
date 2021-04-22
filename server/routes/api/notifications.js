@@ -15,11 +15,11 @@ const jwt = require('jsonwebtoken')
 router.post('/api/:type/notification/:id', async(req, res) => {
     try{
       const owner = req.params.id
-      const {orderId, message} = req.body
+      const {orderId, status} = req.body
       
       // const product = await Product.findOne({_id: productId}) 
       
-      const notif = new Notification({owner,orderId,message})
+      const notif = new Notification({owner,orderId,status})
       await notif.save()
 
       res.status(200).send(notif)

@@ -19,22 +19,65 @@ router.get('/api/:id/orders', async (req, res) => {
 })
 
 // View orders placed / sold
-router.get('/api/:type/orders/:id', async (req, res) => {
-  try {
-    const orderId = req.params.id
-    const type = req.params.type
+// router.get('/api/:type/orders/:id', async (req, res) => {
+//   try {
+//     const orderId = req.params.id
+//     const type = req.params.type
     
-    // let orders = []
+//     // let orders = []
 
-    // if (type === 'Retailer' || type === 'Wholesaler')
-    //   orders = Order.find({ fromId: userId })
+//     // if (type === 'Retailer' || type === 'Wholesaler')
+//     //   orders = Order.find({ fromId: userId })
 
-    // if (type === 'Customer' || type === 'Retailer' )
-    //   orders = Order.find({ toId: userId })
+//     // if (type === 'Customer' || type === 'Retailer' )
+//     //   orders = Order.find({ toId: userId })
 
-    const orders = Order.find({ _id: orderId })
+//     const orders = Order.find({ _id: orderId })
+//     res.status(200).send(orders)
+//   } catch(e) {
+//     res.status(400).send()
+//   }
+// })
+
+router.get('/api/:type/orders/:id', async (req,res) => {
+  let status = req.query.status
+  const type = req.params.type
+  const sellerId = req.params.id
+
+  try {
+    let orders = []
+    
+    if(status){
+
+      if(status === "placed") {
+        orders = await Order.find({fromId: sellerId, status: 'placed'}).sort("date")
+      }
+
+      return res.status(200).send(orders)
+    }
+    
+    orders = await Order.find({fromId: sellerId}).sort("date")
     res.status(200).send(orders)
-  } catch(e) {
+  }
+  catch(e){
+    res.status(400).send()
+  }
+})
+
+
+router.patch('/api/order/:id', async(req,res)=>{
+  try{
+    const orderId = req.params.id
+    const status = req.query.status
+
+    let order = await Order.findOne({_id: orderId})
+    order.status = status
+
+    await order.save()
+
+    res.status(200).send(order)
+  }
+  catch(e){
     res.status(400).send()
   }
 })

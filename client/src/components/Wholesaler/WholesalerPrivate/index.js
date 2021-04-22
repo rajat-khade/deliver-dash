@@ -6,8 +6,8 @@ const WholesalerPrivate = () => {
     
     return ( 
         <div>
-            Wholesaler logged in
-            <button onClick = {()=>auth.logout()}>Log Out</button>
+            {/* Wholesaler logged in */}
+            {/* <button onClick = {()=>auth.logout()}>Log Out</button> */}
         </div>
     )
     

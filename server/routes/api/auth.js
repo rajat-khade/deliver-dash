@@ -9,6 +9,36 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'rotinga9@gmail.com',
+    pass: 'rotirotiroti'
+  }
+});
+
+
+const sendOTP = (receiverMail, OTP) => {
+  var mailOptions = {
+    from: 'rotinga9@gmail.com',
+    to: receiverMail,
+    subject: 'Live Mart OTP Verification',
+    text: 'OTP: ' + OTP + '\nValid for 2 minutes'
+  };
+  
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
+
+
 
 router.post('/api/signup', async (req, res) => {
   const { name, email, password, location, type } = req.body
@@ -188,6 +218,35 @@ router.post('/api/:type/login', async (req, res) => {
     const payload = { user: { id: user._id }}
 
     jwt.sign(payload, config.get('JWT_SECRET'), { expiresIn: 360000 }, (err, token) => {
+      if (err) throw err
+
+      res.status(200).send({ token })
+    })
+    
+  } catch (error) {
+    res.status(401).send(error)
+  }
+
+})
+
+
+router.get('/api/otp/:email', async (req, res) => {
+  const email = req.params.email
+
+  if (!email)
+    res.status(400).send('Please provide email and password')
+
+  console.log(email)
+  // console.log(req.body)
+  try {
+    let max = 9999, min = 1000
+
+    const OTP = Math.floor(Math.random() * (max - min + 1) + min);
+    sendOTP(email, OTP)
+
+    const payload = { OTP: OTP}
+
+    jwt.sign(payload, config.get('JWT_SECRET'), { expiresIn: 60 }, (err, token) => {
       if (err) throw err
 
       res.status(200).send({ token })

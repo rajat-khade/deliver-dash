@@ -51,25 +51,51 @@ const Dashboard = () => {
             <Navbar user={user} searchTermHandler={searchTermHandler} searchTerm={searchTerm} />
             {!searchTerm && 
                 <>
-                <div style={{marginTop:'-10px'}}>
-                <Advertise image={'/images/1.png'} />
+                <div style={{marginTop: '-35px'}}>
+                <Advertise image={'/images/1.png'} color='pink-bg'/>
                 </div>
-                <ItemList type = {user.type} category={'Fruits'} modalHandler = {modalHandler}/>
+                <ItemList 
+                    type = {user.type} 
+                    category={'Fruits'} 
+                    modalHandler={modalHandler}
+                    color='pink'
+                />
                 <Features />
-                <Advertise image={'/images/veggies.png'} />
-                <ItemList type = {user.type} category={'Vegetables'} modalHandler = {modalHandler}/>
+                <Advertise image={'/images/veggies.png'} color='green-bg'/>
+                <ItemList 
+                    type = {user.type} 
+                    category={'Vegetables'} 
+                    modalHandler = {modalHandler}
+                    color='green'
+                />
                 <Features />
-                <Advertise image={'/images/groceries.png'} />
-                <ItemList type = {user.type} category={'Groceries'} modalHandler = {modalHandler}/>
+                <Advertise image={'/images/groceries.png'} color='brown-bg' />
+                <ItemList 
+                    type = {user.type} 
+                    category={'Groceries'} 
+                    modalHandler = {modalHandler}
+                    color='brown'/>
                 <Features />
-                <Advertise image={'/images/beverages.png'} />
-                <ItemList type = {user.type} category={'Beverages'} modalHandler = {modalHandler}/>
+                <Advertise image={'/images/beverages.png'} color='blue-bg'/>
+                <ItemList 
+                    type = {user.type} 
+                    category={'Beverages'} 
+                    modalHandler = {modalHandler}
+                    color='blue'/>
                 <Features />
-                <Advertise image={'/images/meat.png'} />
-                <ItemList type = {user.type} category={'Processed foods'} modalHandler = {modalHandler}/>
+                <Advertise image={'/images/meat.png'} color='red-brown-bg'/>
+                <ItemList 
+                    type = {user.type} 
+                    category={'Processed foods'} 
+                    modalHandler = {modalHandler}
+                    color='red-brown'/>
                 <Features />
-                <Advertise image={'/images/snacks.jpg'} />
-                <ItemList type = {user.type} category={'Snacks'} modalHandler = {modalHandler}/>
+                <Advertise image={'/images/snacks.jpg'} color='yellow-bg'/>
+                <ItemList 
+                    type = {user.type} 
+                    category={'Snacks'} 
+                    modalHandler = {modalHandler}
+                    color='yellow'/>
                 <Features />
                 </>
             }
