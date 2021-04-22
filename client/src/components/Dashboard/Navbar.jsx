@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,10 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import { Link, useHistory } from 'react-router-dom';
-import CustomerAuth from '../../containers/CustomerAuth';
-import RetailerAuth from '../../containers/RetailerAuth';
-import WholesalerAuth from '../../containers/WholesalerAuth';
-import DeliveryAuth from '../../containers/DeliveryAuth';
+import NotificationSplash from '../Notification';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -91,8 +88,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar({ user,searchTerm, searchTermHandler }) {
   const history = useHistory()
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [notification, setNotification] = useState(false)
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -177,7 +175,6 @@ export default function Navbar({ user,searchTerm, searchTermHandler }) {
           aria-haspopup="true"
           color="inherit"
         >
-
           <ShoppingCartIcon />
 
         </IconButton>
@@ -209,7 +206,7 @@ export default function Navbar({ user,searchTerm, searchTermHandler }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar style={{backgroundColor: "#1b2021"}} position="static">
+      <AppBar style={{backgroundColor: "#1b2021", position: 'fixed'}}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -245,10 +242,16 @@ export default function Navbar({ user,searchTerm, searchTermHandler }) {
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton 
+              aria-label="show 17 new notifications" 
+              color="inherit" 
+              onClick = {()=>{
+                setNotification(!notification)
+              }}>
               <Badge variant="dot" color="secondary">
                 <NotificationsIcon />
               </Badge>
+              { notification ? <NotificationSplash/>: <div></div> }
             </IconButton>
             
             

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-
+import jwt_decode from 'jwt-decode'
+import axios from "axios"
 import NotificationList from './NotificationList'
 
 const NotificationSplash = () => {
 
   const [user,setUser] = useState(null)
 
-  useEffect(()=>{
+  useEffect(async ()=>{
     let authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth") || localStorage.getItem("delivery-auth")
         
     if(authToken){

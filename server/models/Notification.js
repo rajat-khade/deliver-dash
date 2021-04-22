@@ -9,7 +9,7 @@ const NotificationSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  productId : {
+  orderId : {
     required: true,
     type: mongoose.Types.ObjectId
   }

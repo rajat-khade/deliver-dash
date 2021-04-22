@@ -1,15 +1,17 @@
 const mongoose = require('mongoose')
 
 const OrderSchema = new mongoose.Schema({
-  delivered: {
-    type: Boolean,
-  },
-  name: {
+  status: {
     type: String,
+    required: true
   },
   from : {
     type: String,
     required: true
+  },
+  productList : {
+    type: Array,
+    default: []
   },
   to: {
     type: String,

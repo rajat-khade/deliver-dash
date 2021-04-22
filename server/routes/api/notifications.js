@@ -15,14 +15,12 @@ const jwt = require('jsonwebtoken')
 router.post('/api/:type/notification/:id', async(req, res) => {
     try{
       const owner = req.params.id
-      const {productId, message} = req.body
+      const {orderId, message} = req.body
       
-      const notif = new Notification({owner,productId,message})
+      // const product = await Product.findOne({_id: productId}) 
+      
+      const notif = new Notification({owner,orderId,message})
       await notif.save()
-
-      const product = await Product.find({_id: productId}) 
-      notif.name = product.name
-      notif.image = product.image
 
       res.status(200).send(notif)
     }
@@ -31,11 +29,12 @@ router.post('/api/:type/notification/:id', async(req, res) => {
     }
 })
 
+
 router.get('/api/:type/notifications/:id',async (req,res) => {
 
     try{
       const owner = req.params.id
-      const notifs = await notification.find({owner})
+      const notifs = await Notification.find({owner})
 
       res.status(200).send(notifs)
     }

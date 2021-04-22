@@ -61,11 +61,17 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
       let deliveryGuy  = {}
       let deliveryPersons = await axios({ url: `/api/Delivery/all`, baseURL: 'http://localhost:5000' })
       
-      for(var j = 0; j < products.length; j++){
+      let retailerIds = new Set()
 
-        let product = products[j]
+      products.forEach((product)=>{
+        retailerIds.add(product.owner)
+      })
+
+      for(let retailerId of retailerIds) {
+
+        console.log(retailerId)
         
-        let retailer = await axios({ url: `/api/getuser/${product.owner}`, baseURL: 'http://localhost:5000' })
+        let retailer = await axios({ url: `/api/getuser/${retailerId}`, baseURL: 'http://localhost:5000' })
         
         let minDist = 100000000, minDeliveryId = ''
 
@@ -94,12 +100,22 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
         }
 
         console.log(minDeliveryId,"Mindist",minDist)
-        deliveryGuy[product._id] = minDeliveryId
+        deliveryGuy[retailerId] = minDeliveryId
       }
 
       body["deliveryGuy"] = deliveryGuy
+      // console.log(deliveryGuy)
       let buyCart = await axios({ method: "patch", url: `/api/${type}/buy/${id}`, baseURL: 'http://localhost:5000', data: body })
       console.log(buyCart)
+
+      for(var i = 0; i<buyCart.data.length; i++){
+        let body = {
+          orderId: buyCart.data[i],
+          message: `Your Order with Order ID: ${buyCart.data[i]} has been placed!`
+        }
+        let notification = await axios({ method: "post", url: `/api/${type}/notification/${id}`, baseURL: 'http://localhost:5000', data: body })
+        console.log(notification)
+      }
       setForceRenderCart(!forceRenderCart)
     } catch (error) {
       console.log("Error",error)
