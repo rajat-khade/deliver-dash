@@ -51,7 +51,7 @@ const Dashboard = () => {
             <Navbar user={user} searchTermHandler={searchTermHandler} searchTerm={searchTerm} />
             {!searchTerm && 
                 <>
-                <div style={{marginTop:'-62px'}}>
+                <div style={{marginTop:'-10px'}}>
                 <Advertise image={'/images/1.png'} />
                 </div>
                 <ItemList type = {user.type} category={'Fruits'} modalHandler = {modalHandler}/>

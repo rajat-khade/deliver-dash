@@ -74,7 +74,7 @@ const ProductModal = ({modalHandler,modal}) => {
       }, [modal])
 
     return (
-        <div className="container" style = {{display:'flex',justifyContent:'center'}}>
+        <div className="container" style = {{display:'flex',justifyContent:'center',marginTop: '60px'}}>
             <div className = "productModal-container">
                 {/* <div onClick = {()=>modalHandler(false)} style={{width:'20px',height:'20px',backgroundColor:'black',cursor:'pointer',marginLeft:'auto'}}></div> */}
                 <button onClick = {()=>modalHandler(false)} style={{zIndex:2,position:'absolute',right:'0', width:'20px', height:'20px',cursor:'pointer',margin: '10px 10px 0 auto',border:'none', background:"url(/images/Group-11862.svg) no-repeat", backgroundSize:'100% auto'}}>
