@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 // import WholesalerAuth from '../containers/WholesalerAuth'
 import Landing from './Landing'
 import CartSplash from './Cart'
-import Stock from './Stock'
+import StockSplash from './Stock'
 
 import Customer from './Customer'
 import Retailer from './Retailer'
@@ -27,7 +27,7 @@ const LandingRoutes = () => {
             <Switch>
                 <Route exact path = "/" component={Landing}></Route>
                 <Route exact path = "/*/cart" component={CartSplash}></Route>
-                <Route exact path = "/*/stock" component={Stock}></Route>
+                <Route exact path = "/*/stock" component={StockSplash}></Route>
                 <Route exact path = "/customer/*" component={Customer}></Route>
                 <Route exact path = "/retailer/*" component={Retailer}></Route>
                 <Route exact path = "/wholesaler/*" component={Wholesaler}></Route>

@@ -3,8 +3,11 @@ const connectDB = require('../config/db')
 const { urlencoded } = require('body-parser')
 const authRoute = require('./routes/api/auth.js')
 const productsRoute = require('./routes/api/products.js')
+const usersRoute = require('./routes/api/users.js')
 const cartRoute = require('./routes/api/cart.js')
 const stockRoute = require('./routes/api/stock.js')
+const ordersRoute = require('./routes/api/orders.js')
+const notifRoute = require('./routes/api/notifications.js')
 
 const app = express()
 
@@ -17,7 +20,10 @@ app.use(express.json({ extended: false }))
 
 app.use(authRoute)
 app.use(productsRoute)
+app.use(usersRoute)
 app.use(cartRoute)
+app.use(notifRoute)
 app.use(stockRoute)
+app.use(ordersRoute)
 
 app.listen(port, () => console.log(`Server started on ${port}...`))

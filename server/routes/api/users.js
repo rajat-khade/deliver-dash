@@ -2,6 +2,7 @@ const Product = require('../../models/Product')
 const Retailer = require('../../models/Retailer')
 const Wholesaler = require('../../models/Wholesaler')
 const Customer = require('../../models/Customer')
+const Delivery = require('../../models/Delivery')
 
 const express = require('express')
 const router = express.Router()
@@ -65,6 +66,31 @@ router.patch('/api/:type/products/:id', async (req, res) => {
   }
 })
 
+
+router.get('/api/:type/all', async (req, res) => {
+  try {
+    const type = req.params.type
+
+    let users = []
+    
+    if(type === "Customer")
+      users = await Customer.find({})
+    if(type === "Retailer")
+      users = await Retailer.find({})
+    if(type === "Wholesaler")
+      users = await Wholesaler.find({})
+    if(type === "Delivery")
+      users = await Delivery.find({})
+
+    return res.status(200).send(users)
+  }
+  catch(e){
+    res.status(400).send()
+  }
+
+
+
+})
 
 
 

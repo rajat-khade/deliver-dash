@@ -76,7 +76,7 @@ const CartSplash = () => {
   return (
     <div className="cart-container">
       <Navbar cartTotal = {cartTotal}/>
-      <Map />
+      {/* <Map /> */}
       <Cart 
         type = {user.type}
         id={user._id}

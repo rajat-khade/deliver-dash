@@ -8,6 +8,7 @@ router.get('/api/:type/products', async (req, res) => {
   try {
     const buyerType = req.params.type
     const category = req.query.category
+    const unique = req.query.unique
 
     let ownerType
 
@@ -17,15 +18,81 @@ router.get('/api/:type/products', async (req, res) => {
       ownerType = "Wholesaler"
     
     let products = []
+    let result = []
 
     if (category)
       products = await Product.find({ ownerType, category })
     else
       products = await Product.find({ ownerType })
     
-    res.status(200).send(products)
+    
+    if(unique === "true"){
+      let names = new Set()
+      products.forEach((product)=>{
+        if(names.has(product.name))
+          return
+        
+        result.push(product)
+        names.add(product.name)
+      })
+    }
+    else
+      result = products
+      
+
+    res.status(200).send(result)
   } catch(e) {
     
+  }
+})
+
+
+// View all unique products
+router.get('/api/:type/products', async (req, res) => {
+  try {
+    const buyerType = req.params.type
+    const category = req.query.category
+
+    let ownerType
+
+    if(buyerType==="Customer")
+      ownerType = "Retailer"
+    else if(buyerType === "Retailer")
+      ownerType = "Wholesaler"
+    
+    let products = []
+    let result = []
+
+    if (category)
+      products = await Product.find({ ownerType, category })
+    else
+      products = await Product.find({ ownerType })
+    
+    
+
+    res.status(200).send(result)
+  } catch(e) {
+    
+  }
+})
+
+
+//Edit product from stock
+router.patch('/api/products/:id', async (req,res) => {
+  try {
+    const productId = req.params.id
+    const {price, quantity} = req.body 
+
+    const product = await Product.findOne({_id : productId})
+    product.price = price
+    product.quantity = quantity
+
+    await product.save()
+
+    res.status(200).send(product)
+  }
+  catch(e){
+    res.status(400).send()
   }
 })
 
@@ -42,31 +109,46 @@ router.get('/api/products/:id', async (req, res) => {
   }
 })
 
-// Order product // Customer, Retailer
-router.patch('/api/:type/products/:id', async (req, res) => {
+router.get('/api/:type/search', async (req, res) => {
+  const term = req.query.term
+  const buyerType = req.params.type
+  const unique = req.query.unique
   try {
-    // const sellerType = req.params.type
-    // const buyerId = req.params.id
-    // const { sellerId, quantity, productId } = req.body
 
-    // const product = await Product.findOne({ _id: productId, owner: buyerId })
+    let ownerType
 
-    // if (product)
-    //   product['quantity'] += quantity
-    // else
-    //   await new Product({ })
+    if(buyerType==="Customer")
+      ownerType = "Retailer"
+    else if(buyerType === "Retailer")
+      ownerType = "Wholesaler"
 
-    await product.save()
+    const regex =  new RegExp(term,'i');
+    const products = await Product.find({ "name": regex, ownerType })
 
-    res.status(200)
-  } catch (e) {
-    console.log("Error",e)
+    let result = []
+    let names = new Set()
+    products.forEach((product)=>{
+      if(names.has(product.name))
+        return
+      
+      result.push(product)
+      names.add(product.name)
+    })
+    
+    // products = JSON.parse(products)
+
+    // const results = products.filter((product) => {
+    //   return product.name.match(`/${term}/i`).length > 0
+    // })
+
+    if (result.length === 0)
+      result = 'No item available' 
+
+    res.status(200).send(result)
+
+  } catch(e) {
+    res.status(400).send()
   }
 })
 
-
-
 module.exports = router
-
-
-

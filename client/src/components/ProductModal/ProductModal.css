@@ -33,3 +33,6 @@
     opacity: 0.75;
 
 }
+th, td {
+    margin: 5px 5px;
+}

@@ -12,10 +12,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import { Link, useHistory } from 'react-router-dom';
+import CustomerAuth from '../../containers/CustomerAuth';
+import RetailerAuth from '../../containers/RetailerAuth';
+import WholesalerAuth from '../../containers/WholesalerAuth';
+import DeliveryAuth from '../../containers/DeliveryAuth';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -83,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Navbar() {
+export default function Navbar({ user,searchTerm, searchTermHandler }) {
   const history = useHistory()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -107,7 +112,20 @@ export default function Navbar() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+    console.log(user);
   };
+
+  const LogOut = () => {
+    localStorage.removeItem("customer-auth") 
+    localStorage.removeItem("retailer-auth") 
+    localStorage.removeItem("wholesaler-auth") 
+    localStorage.removeItem("delivery-auth") 
+    
+
+    console.log("Logged out All")
+    history.push("/")
+    
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -168,6 +186,7 @@ export default function Navbar() {
         <p>Cart</p>
 
       </MenuItem>
+      
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -178,6 +197,12 @@ export default function Navbar() {
           <LocalMallIcon />
         </IconButton>
         <p>Orders</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+            <PowerSettingsNewIcon onClick = {LogOut} />
+        </IconButton>
+        <p>LogOut</p>
       </MenuItem>
     </Menu>
   );
@@ -207,11 +232,14 @@ export default function Navbar() {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              value={searchTerm}
               inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => searchTermHandler(e)}
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
+          <div className={classes.sectionDesktop} style={{display:'flex',alignItems:'center'}}>
+          {user && <span style={{marginRight:'20px',fontSize:'1.2rem'}}>Hey, {user.name}</span>}
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge variant="dot" color="secondary">
                 <MailIcon />
@@ -222,6 +250,8 @@ export default function Navbar() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            
+            
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -239,6 +269,9 @@ export default function Navbar() {
                   style = {{textDecoration: 'none',background:'transparent',color:'white',marginTop:'-5px'}}
                   > */}
                 <ShoppingCartIcon />
+            </IconButton>
+            <IconButton aria-label="logout" color="inherit">
+                <PowerSettingsNewIcon onClick = {LogOut} style={{marginLeft:'5px',cursor:'pointer'}} />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
