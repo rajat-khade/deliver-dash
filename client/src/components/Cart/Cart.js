@@ -5,6 +5,7 @@ import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
 import 'mapbox-gl/dist/mapbox-gl.css'
 import CartItem from './CartItem'
 import Map from '../Map.js';
+import './Cart.css'
 
 const Cart = ({ type, id, cartTotal, setCartTotal }) => {
   const [products, setProducts] = useState([])
@@ -129,14 +130,16 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
 
   
   return (
-    <div 
-        style={{
-            display: 'flex', 
-            flexDirection: 'column',
-        }}>
-          <Map markerLocs = {markerLocs} />
-      {loaded && products.map((product, index) =>{
-              return <CartItem
+    <div className='cart-container'>
+      <Map 
+        markerLocs = {markerLocs}
+        height = '100%'
+        width = '55%'
+        />
+      <div className='cart-items-container'>
+        <div className='cart-items'>
+          {loaded && products.map((product, index) =>{
+            return <CartItem
               product={product}
               key={index}
               type={type}
@@ -146,13 +149,13 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
               forceRenderCart = {forceRenderCart}
               setForceRenderCart = {setForceRenderCart}
               />
-            }
-            )
-        }
-
-
-
-        <button style={{backgroundColor:'yellow',marginTop:'50px'}} onClick = {orderAll}>Order All</button>
+            })
+          }
+        </div>
+        <button className='order-all-button' onClick = {orderAll}>
+          Order All
+        </button>
+      </div>
     </div>
   )
 }

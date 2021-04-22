@@ -10,19 +10,19 @@ function Features(){
         <div className="feature-box col-lg-4">
           <div className="p-3 border bg-light feature-box-content">
             <h1><i className="fas fa-hamburger fa-2x icon"></i></h1>
-            <p className="icon-text">best reviews</p>
+            <p className="icon-text">Best Reviews</p>
           </div>
         </div>
         <div className="feature-box col-lg-4">
           <div className="p-3 border bg-light feature-box-content">
             <h1><i className="fas fa-star fa-2x icon"></i></h1>
-            <p className="icon-text">highest rated</p>
+            <p className="icon-text">Highest Rated</p>
           </div>
         </div>
         <div className="feature-box col-lg-4">
           <div className="p-3 border bg-light feature-box-content">
             <h1><i className="fas fa-truck fa-2x icon"></i></h1>
-            <p className="icon-text">fast delivery</p>
+            <p className="icon-text">Fast Delivery</p>
           </div>
         </div>
       </div>

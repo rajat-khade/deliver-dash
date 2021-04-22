@@ -206,7 +206,8 @@ export default function Navbar({ user,searchTerm, searchTermHandler }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar style={{backgroundColor: "#1b2021", position: 'fixed'}}>
+      <AppBar 
+        style={{backgroundColor: "#1b2021", position: 'fixed', borderBottom: '1px solid white'}}>
         <Toolbar>
           <IconButton
             edge="start"
