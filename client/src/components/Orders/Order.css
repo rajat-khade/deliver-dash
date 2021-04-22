@@ -1,0 +1,50 @@
+.seller-order-container {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seller-order-id, 
+.seller-order-customer-name, 
+.seller-order-transaction, 
+.seller-order-delivery-date {
+  width: 200px;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black
+}
+
+.seller-order-id {
+  width: 250px;
+}
+
+
+.seller-order-dispatch {
+  cursor: pointer;
+  height: 50px;
+  width: 200px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0px 5px 10px 0.2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  color: white;
+}
+
+.placed {
+  background-color: rgb(36, 218, 36);
+}
+
+.transit {
+  background-color: blue;
+}
+
+.delivered {
+
+}

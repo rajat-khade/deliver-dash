@@ -16,6 +16,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link, useHistory } from 'react-router-dom';
 import NotificationSplash from '../Notification';
 
@@ -85,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Navbar({ user,searchTerm, searchTermHandler }) {
+export default function Navbar({ user, searchTerm, searchTermHandler }) {
   const history = useHistory()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -126,20 +127,6 @@ export default function Navbar({ user,searchTerm, searchTermHandler }) {
   }
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Cart</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Orders</MenuItem>
-    </Menu>
-  );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -249,12 +236,38 @@ export default function Navbar({ user,searchTerm, searchTermHandler }) {
               onClick = {()=>{
                 setNotification(!notification)
               }}>
-              <Badge variant="dot" color="secondary">
+              <Badge color="secondary">
                 <NotificationsIcon />
               </Badge>
               { notification ? <NotificationSplash/>: <div></div> }
             </IconButton>
             
+            {user.type!=="Customer"?
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+              style={{marginRight:'5px'}}
+              onClick = {()=>history.push(`/${user.type}/stock`)}
+              >
+              <AddShoppingCartIcon/>
+            </IconButton>
+            :""}
+
+            {user.type !== 'Customer' ? 
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+              onClick = {()=>history.push(`/${user.type}/orders`)}
+            >
+              <LocalMallIcon />
+            </IconButton>
+            :''}
             
             <IconButton
               edge="end"
@@ -264,18 +277,12 @@ export default function Navbar({ user,searchTerm, searchTermHandler }) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              {/* <Link to = {{
-                pathname: "/customer/cart",
-                state: {
-                  cart : cart
-                }}} 
-                
-                  style = {{textDecoration: 'none',background:'transparent',color:'white',marginTop:'-5px'}}
-                  > */}
-                <ShoppingCartIcon />
+              
+              <ShoppingCartIcon 
+                onClick = {()=>history.push(`/${user.type}/cart`)}/>
             </IconButton>
             <IconButton aria-label="logout" color="inherit">
-                <PowerSettingsNewIcon onClick = {LogOut} style={{marginLeft:'5px',cursor:'pointer'}} />
+              <PowerSettingsNewIcon onClick = {LogOut} style={{marginLeft:'5px',cursor:'pointer'}} />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -292,7 +299,6 @@ export default function Navbar({ user,searchTerm, searchTermHandler }) {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </div>
   );
 }

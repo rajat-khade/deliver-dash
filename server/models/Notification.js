@@ -5,7 +5,7 @@ const NotificationSchema = new mongoose.Schema({
     required: true,
     type: mongoose.Types.ObjectId,
   },
-  message: {
+  status: {
     required: true,
     type: String,
   },

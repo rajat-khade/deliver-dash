@@ -4,10 +4,10 @@ import './Notification.css'
 const Notification = ({ notification, notifCode }) => {
 
   const messageBody = {
-    'placed': `Your Order ${notification.name} (ID: ${notification.productId}) has been placed!`,
-    'dispatch': `Your Order ${notification.name} (ID: ${notification.productId}) has been dispatched!`,
-    'transit': `Your Order ${notification.name} (ID: ${notification.productId}) is on the way!`,
-    'delivered': `Your Order ${notification.name} (ID: ${notification.productId}) has been delivered!`,
+    'placed': { message : `Your Order with OrderID: ${notification.orderId} has been placed!`, color:'orange'},
+    'dispatch': { message: `Your Order with OrderID: ${notification.orderId} has been dispatched!`, color: 'blue'},
+    'transit': { message: `Your Order with OrderID: ${notification.orderId} is on the way!`, color: 'black'},
+    'delivered': { message: `Your Order with OrderID: ${notification.orderId} has been delivered!`, color: 'green'}
   }
 
   return (
@@ -16,14 +16,15 @@ const Notification = ({ notification, notifCode }) => {
         <div 
           className='notification-image' 
           style={{
-            background: `url(${notification.image}) no-repeat`, 
-            backgroundSize: 'cover'
+            // background: `url(${notification.image}) no-repeat`, 
+            // backgroundSize: 'cover'
+            backgroundColor: messageBody[notification.status].color
           }}>
         </div>
       </div>
       <div className='notification-right'>
         <div className='notification-message'>
-          {notification.message}
+          {messageBody[notification.status].message}
           <div>Track your order here!</div>
         </div>
       </div>

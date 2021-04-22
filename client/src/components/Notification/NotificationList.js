@@ -7,9 +7,10 @@ const NotificationList = ({ type, id }) => {
   const [notifList, setNotifList] = useState([])
 
   useEffect(async () => {
-    let notifList = await axios({ url: `/api/${type}/notifications/${id}`, baseURL: 'http://localhost:5000' })
-    console.log(notifList)
-    setNotifList([...notifList.data])
+    let response = await axios({ url: `/api/${type}/notifications/${id}`, baseURL: 'http://localhost:5000' })
+    // console.log(notifList)
+    setNotifList([...response.data].reverse())
+    // notifList.reverse()
   }, [])
 
   
@@ -18,7 +19,7 @@ const NotificationList = ({ type, id }) => {
       display: 'block', 
       position: 'absolute', 
       maxHeight: '300px',
-    //   overflowY: 'scroll',
+      overflowY: 'scroll',
       right: '20px',
       top: '40px'}}>
       {notifList.map((notification) => {
