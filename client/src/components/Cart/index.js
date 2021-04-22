@@ -3,7 +3,8 @@ import Cart from "./Cart";
 import Navbar from "./Navbar"
 import jwt_decode from "jwt-decode"
 import axios from "axios"
-import Map from "../Map"
+
+import './Cart.css'
 
 const CartSplash = () => {
 
@@ -74,9 +75,8 @@ const CartSplash = () => {
 
   if(user)
   return (
-    <div className="cart-container">
+    <div className="cart-main-container">
       <Navbar cartTotal = {cartTotal}/>
-      {/* <Map /> */}
       <Cart 
         type = {user.type}
         id={user._id}

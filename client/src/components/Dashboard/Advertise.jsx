@@ -1,10 +1,10 @@
 import React from "react";
 import "./Advertise.css"
 
-function Advertise(props){
+function Advertise({ color, image }){
     return (
-        <div className="picture-div">
-            <img className="picture" src={props.image} alt="" />
+        <div className={`picture-div ${color}`}>
+            <img className="picture" src={image} alt="" />
         </div>
     );
 }

@@ -28,6 +28,7 @@
         "mongoose": "^5.12.2",
         "nodemailer": "^6.5.0",
         "nodemon": "^2.0.7",
+        "react-multi-carousel": "^2.6.2",
         "react-router-dom": "^5.2.0",
         "router": "^1.3.5",
         "unstated-next": "^1.1.0"

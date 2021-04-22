@@ -90,13 +90,21 @@ const ProductModal = ({modalHandler,modal}) => {
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems:'center',
-                            backgroundColor:'white', 
+                            backgroundColor:'#555555', 
                             borderTopLeftRadius:'10px',
                             borderBottomLeftRadius:'10px',
-                            borderRight:'2px solid black'}}>
-                        <div style={{width:'100%',height:'60%',background: `url(${modal.image}) no-repeat`, backgroundSize:"100% 100%", borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px'}}></div>
+                            borderRight:'2px solid black'}}
+                        >
+                        <div 
+                            style={{
+                                width:'100%',
+                                height:'55%',
+                                background: `url(${modal.image}) no-repeat`, 
+                                backgroundSize:"100% 100%", 
+                                borderTopLeftRadius:'10px'}} 
+                        />
 				
-                        <Map markerLocs = {markerLocs}/>
+                        <Map markerLocs = {markerLocs} height='45%' />
 					</div>
                     <div style={{width:'50%',height:'100%',padding:'10%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
                         <h1>{modal.name}</h1>

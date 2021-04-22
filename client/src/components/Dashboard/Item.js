@@ -1,13 +1,24 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import './Item.css'
 
-const Item = ({ product, modalHandler }) => {
+const Item = ({ product, modalHandler, color, type }) => {
+
+  const [noOfSellers, setNoOfSellers] = useState(0)
+
+  useEffect( async () => {
+    const response = await axios({ url: `/api/${type}/products`, baseURL: 'http://localhost:5000' })
+
+    const sellers = response.data.filter(item => item.name === product.name)
+
+    setNoOfSellers(sellers.length)
+  }, [])
 
   return (
     <div onClick={() => {
       modalHandler(false)
       modalHandler(product)
-      }} className='item-container' style={{cursor:'pointer'}}>
+      }} className={`item-container ${color}`} style={{cursor:'pointer'}}>
       <div className='item-contents'>
         <div className='item-image'>
           <div className='item-image-details' style={{
@@ -24,7 +35,7 @@ const Item = ({ product, modalHandler }) => {
           </div>
           <div className='divider' />
           <div className='item-delivery'>
-            {'Delivery in 2 days'}
+            {`Available from ${noOfSellers} sellers`}
           </div>
         </div>
       </div>
