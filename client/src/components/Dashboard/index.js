@@ -68,14 +68,13 @@ const Dashboard = () => {
                     modalHandler = {modalHandler}
                     color='green'
                 />
-                <Features />
                 <Advertise image={'/images/groceries.png'} color='brown-bg' />
                 <ItemList 
                     type = {user.type} 
                     category={'Groceries'} 
                     modalHandler = {modalHandler}
                     color='brown'/>
-                <Features />
+
                 <Advertise image={'/images/beverages.png'} color='blue-bg'/>
                 <ItemList 
                     type = {user.type} 
@@ -89,14 +88,13 @@ const Dashboard = () => {
                     category={'Processed foods'} 
                     modalHandler = {modalHandler}
                     color='red-brown'/>
-                <Features />
+
                 <Advertise image={'/images/snacks.jpg'} color='yellow-bg'/>
                 <ItemList 
                     type = {user.type} 
                     category={'Snacks'} 
                     modalHandler = {modalHandler}
                     color='yellow'/>
-                <Features />
                 </>
             }
             {searchTerm && <ItemSearchList searchResults = {searchResults} modalHandler = {modalHandler} />}

@@ -12,6 +12,7 @@ import axios from "axios"
 import jwt_decode from "jwt-decode"
 import { useHistory } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
+import { GoogleLogin } from 'react-google-login'
 import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +43,7 @@ export default function Signup() {
     }
   });
   
+  const clientId = '141701910733-9p68kgmjc4ig4ai54tpmnn05l6s6blpp.apps.googleusercontent.com'
   
   const sendOTP = async (receiverMail) => {
     let token = await axios({ url: `/api/otp/${receiverMail}`, baseURL: 'http://localhost:5000' })
@@ -72,29 +74,30 @@ export default function Signup() {
  
 
   return (
-    <div style={{padding:'3%'}}>
+    <div style={{padding:'3%', alignContent: 'center'}}>
+      <h2 style={{textAlign: 'center', color: '#333333',fontWeight: '700',marginTop: '-5px',marginBottom: '8px'}}>Get Started</h2>
       <ToastContainer/>
-        <form className={classes.root} noValidate autoComplete="off">
-            <TextField style={{padding:'3%'}} value = {name} onChange = {(e)=>setName(e.target.value)} id="name" placeholder="Name" variant="outlined" />
-            <TextField style={{padding:'3%'}} value = {email} onChange = {(e)=>setEmail(e.target.value)} id="email" placeholder="email" variant="outlined" />
-            <TextField style={{padding:'3%'}} value = {password} onChange = {(e)=>setPassword(e.target.value)} id="password" type="password" placeholder="Password" variant="outlined" />
-            <TextField style={{padding:'3%'}} value = {confirm} onChange = {(e)=>setConfirm(e.target.value)} id="confirm" type="password" placeholder="Confirm Password" variant="outlined" />
-            <TextField style={{padding:'3%'}} value = {location} onChange = {(e)=>setLocation(e.target.value)} id="location" placeholder="Location" />
-            <div>
+        <form style={{display: 'flex',flexDirection: 'column',alignItems: 'center'}} className={classes.root} noValidate autoComplete="off">
+            <input style={{padding:'1%',height: '45px',textAlign: 'center',borderRadius: '5px'}} value = {name} onChange = {(e)=>setName(e.target.value)} id="name" placeholder="Name" variant="outlined" />
+            <input style={{padding:'1%',height: '45px',textAlign: 'center',borderRadius: '5px'}} value = {email} onChange = {(e)=>setEmail(e.target.value)} id="email" placeholder="Email" variant="outlined" />
+            <input style={{padding:'1%',height: '45px',textAlign: 'center',borderRadius: '5px'}} value = {password} onChange = {(e)=>setPassword(e.target.value)} id="password" type="password" placeholder="Password" variant="outlined" />
+            <input style={{padding:'1%',height: '45px',textAlign: 'center',borderRadius: '5px'}} value = {confirm} onChange = {(e)=>setConfirm(e.target.value)} id="confirm" type="password" placeholder="Confirm Password" variant="outlined" />
+            <input style={{padding:'1%',height: '45px',textAlign: 'center',borderRadius: '5px'}} value = {location} onChange = {(e)=>setLocation(e.target.value)} id="location" placeholder="Location" />
+            <div style={{marginTop: '10px'}}>
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Signup As</FormLabel>
-                    <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                    <RadioGroup style={{fontWeight: '100'}} aria-label="gender" name="gender1" value={value} onChange={handleChange}>
                         <FormControlLabel value="Retailer" control={<Radio onClick = {()=>setType("Retailer")}/>} label="Retailer" />
-                        <FormControlLabel value="Customer" control={<Radio onClick = {()=>setType("Customer")}/>} label="Customer" />
-                        <FormControlLabel value="Wholesaler" control={<Radio onClick = {()=>setType("Wholesaler")}/>} label="Wholesaler" />
-                        <FormControlLabel value="Delivery" control={<Radio onClick = {()=>setType("Delivery")}/>} label="Delivery" />
+                        <FormControlLabel style={{marginTop: '-8px'}} value="Customer" control={<Radio onClick = {()=>setType("Customer")}/>} label="Customer" />
+                        <FormControlLabel style={{marginTop: '-8px'}} value="Wholesaler" control={<Radio onClick = {()=>setType("Wholesaler")}/>} label="Wholesaler" />
+                        <FormControlLabel style={{marginTop: '-8px'}} value="Delivery" control={<Radio onClick = {()=>setType("Delivery")}/>} label="Delivery" />
                     </RadioGroup>
                 </FormControl>
             </div>
 
             {!otpSent?
             <div className={classes.button}>
-                <Button style={{marginTop:'10px',height:'40px'}} onClick = {()=>{
+                <Button style={{marginTop:'0',height:'40px',backgroundColor: '#333333',width: '250px'}} onClick = {()=>{
                   sendOTP(email)
                   console.log("mailed",name,email,password,confirm,location,otp)
                   setOtpSent(true)
@@ -104,8 +107,8 @@ export default function Signup() {
                 </Button>
                 <div>{errorMessage}</div>
             </div>:<div className={classes.button}>
-                <TextField style={{padding:'3%'}} id="otp" value = {otp} onChange = {(e)=>setOtp(e.target.value)} placeholder="Enter OTP" />
-                <Button style={{marginTop:'10px',height:'40px'}} 
+                <TextField style={{padding:'1%',marginTop: '-18px'}} id="otp" value = {otp} onChange = {(e)=>setOtp(e.target.value)} placeholder="Enter OTP" />
+                <Button style={{marginTop:'10px',height:'40px',backgroundColor: '#333333',width: '250px'}} 
                   variant="contained" 
                   color="primary"
                   onClick = {async ()=>{
@@ -147,7 +150,16 @@ export default function Signup() {
                     Signup
                 </Button>
                   <div>{errorMessage}</div>
+
+                
             </div>}
+            <GoogleLogin
+                  clientId = {clientId}
+                  buttonText="Login"
+                  // onSuccess={onSuccess}
+                  cookiePolicy={'single_host_origin'}
+                  isSignedIn={true}
+                />
             
 
             

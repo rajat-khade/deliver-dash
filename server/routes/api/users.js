@@ -3,6 +3,7 @@ const Retailer = require('../../models/Retailer')
 const Wholesaler = require('../../models/Wholesaler')
 const Customer = require('../../models/Customer')
 const Delivery = require('../../models/Delivery')
+const Feedback = require('../../models/Feedback')
 
 const express = require('express')
 const router = express.Router()
@@ -88,8 +89,27 @@ router.get('/api/:type/all', async (req, res) => {
     res.status(400).send()
   }
 
+})
 
+router.post('/api/feedback', async(req,res) => {
+  try{
+    const owner = req.query.owner
+    const {name, message} = req.body
 
+    let feedback = new Feedback({
+      owner,
+      name,
+      message
+    })
+
+    console.log(feedback)
+    await feedback.save()
+
+    res.status(200).send(feedback)
+  }
+  catch(e){
+    res.status(400).send()
+  }
 })
 
 

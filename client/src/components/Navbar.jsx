@@ -196,9 +196,9 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
   if(user)
   return (
     <div className={classes.grow}>
-      {tracker ? <Tracker tracker={tracker}/> : ""}
+      {tracker ? <Tracker tracker={tracker} setTracker={setTracker} /> : ""}
       <AppBar 
-        style={{backgroundColor: "#1b2021", position: 'fixed', borderBottom: '1px solid white'}}>
+        style={{backgroundColor: "#1b2021", position: 'fixed'}}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -208,8 +208,8 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            LiveMart
+          <Typography style={{fontSize: '1.7rem',fontWeight: '600'}} className={classes.title} variant="h6" noWrap>
+            DoorDash
           </Typography>
           <div className={classes.search} style={{marginLeft: 50}}>
             <div className={classes.searchIcon}>

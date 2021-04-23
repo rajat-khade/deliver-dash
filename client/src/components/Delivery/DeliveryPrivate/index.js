@@ -40,7 +40,11 @@ const DeliveryPrivate = () => {
 
         for(var i = 0; i<dOrders.length; i++){
 
+            
             let dOrder = dOrders[i]
+            
+            if(dOrder.status === "delivered" || dOrder.status === "placed")
+                continue
 
             const { data : seller } = await axios({ url: `/api/getuser/${dOrder.fromId}`, baseURL: 'http://localhost:5000' })
 

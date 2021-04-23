@@ -49,7 +49,7 @@ export default function HorizontalStepper({status}) {
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepButton onClick={handleStep(index)} completed={completed[index]}>
+            <StepButton completed={completed[index]}>
               {label}
             </StepButton>
           </Step>

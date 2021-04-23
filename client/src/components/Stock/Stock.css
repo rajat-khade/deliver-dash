@@ -1,5 +1,6 @@
 .stock-container {
-  background-color: rgb(60, 180, 60);
+  background-color: #fff;
+  padding: 3% 10%;
   width: 100vw;
   height: 100vh;
   display: flex;

@@ -1,18 +1,19 @@
 .notification-container {
   width: 400px;
-  height: 80px;
+  height: 75px;
   display: flex;
   /* border-radius: 5px; */
   background-color: white;
   border: 1px solid black;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
-
+  display: flex;
 }
 
 .notification-left {
   width: 20%;
   height: 100%;
+  
 }
 
 .notification-right {
@@ -28,12 +29,19 @@
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-right: 1px solid black;
 }
 
 .notification-message {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .notification-items {

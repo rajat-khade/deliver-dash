@@ -4,7 +4,7 @@
   width: 100%;
   height: 70%;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 99px;
   box-shadow: 0 7px 7px 0 grey;
   
 }
@@ -20,7 +20,7 @@
 }
 
 .green-bg {
-  background-color: #76eb58;
+  background-color: #c7ffd8;
   background-image: url("https://www.transparenttextures.com/patterns/always-grey.png");
 }
 

@@ -14,8 +14,52 @@ const Map = ({markerLocs, directionRoutes = [], height = '800px', width = '100%'
           container: 'map', // container ID
           style: 'mapbox://styles/mapbox/dark-v10', // style URL
           center: [73.0297,19.0330 ], // starting position
-          zoom: 13 // starting zoom
+          zoom: 12 // starting zoom
         });
+
+         // var seaWoodsMall = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.01832995312378,19.02141076598357])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>SeaWoods Mall</h6>"))
+        // .addTo(map);
+        // var mcDonalds = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.022456477622,19.02464620334787])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>McDonalds</h6>"))
+        // .addTo(map);
+        // var bakerBliss = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.02314595100137,19.0279139183061])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Baker Bliss</h6>"))
+        // .addTo(map);
+        // var Dominos = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.00864055013385,19.0439967694349])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Dominos</h6>"))
+        // .addTo(map);
+        // var PrimeMall = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.06371562837627,19.039812599821804])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Prime Mall</h6>"))
+        // .addTo(map);
+        // var littleWorld = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.06624029085143,19.030856912826778])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Little World</h6>"))
+        // .addTo(map);
+    
+        // var shoppingPlaza = new mapboxgl.Marker({
+        //     scale: 0.8
+        // })
+        // .setLngLat([73.04165723601213,19.02404242610254])
+        // .setPopup(new mapboxgl.Popup().setHTML("<h6 style='color:#818181;padding:5px'>Shopping Plaza</h6>"))
+        // .addTo(map);
         
         markerLocs.forEach((loc)=>{
             let t = new mapboxgl.Marker({

@@ -8,6 +8,7 @@ const cartRoute = require('./routes/api/cart.js')
 const stockRoute = require('./routes/api/stock.js')
 const ordersRoute = require('./routes/api/orders.js')
 const notifRoute = require('./routes/api/notifications.js')
+const cors = require("cors")
 
 const app = express()
 
@@ -16,6 +17,7 @@ connectDB()
 
 const port = process.env.PORT || 5000
 
+app.use(cors())
 app.use(express.json({ extended: false }))
 
 app.use(authRoute)

@@ -12,7 +12,7 @@ import Retailer from './Retailer'
 import Wholesaler from './Wholesaler'
 import Delivery from './Delivery'
 import Orders from './Orders'
-import HorizontalStepper from './Tracker/Stepper'
+import Feedback from './Feedback/Feedback'
 
 
 const LandingRoutes = () => {
@@ -30,6 +30,7 @@ const LandingRoutes = () => {
                 <Route exact path = "/" component={Landing}></Route>
                 <Route exact path = "/*/cart" component={CartSplash}></Route>
                 <Route exact path = "/*/orders" component={Orders}></Route>
+                <Route exact path = "/*/feedback" component={Feedback}></Route>
                 <Route exact path = "/*/stock" component={StockSplash}></Route>
                 <Route exact path = "/customer/*" component={Customer}></Route>
                 <Route exact path = "/retailer/*" component={Retailer}></Route>

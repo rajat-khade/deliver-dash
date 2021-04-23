@@ -65,17 +65,19 @@ router.patch('/api/:type/buy/:id', async (req, res) => {
       if (buyerType === 'Retailer')
         seller = await Wholesaler.findOne({ _id: sellerId })
 
-      if(productGroups.hasOwnProperty(sellerId))
-        productGroups[sellerId].push({ ...product, quantity: buyingQty })
-      else
-        productGroups[sellerId] = [{ ...product, quantity: buyingQty }]
+      var copyProd = {...product._doc,quantity:buyingQty};
 
+      if(productGroups.hasOwnProperty(sellerId))
+        productGroups[sellerId].push(copyProd)
+      else
+        productGroups[sellerId] = [copyProd]
 
       sellerLocs[sellerId] = seller.location      
 
       product['quantity'] = product['quantity'] - buyingQty
       await product.save()
       
+      console.log(copyProd)
       let buyerProduct = await Product.findOne({ name, ownerType: buyerType })
       
       if (buyerProduct)

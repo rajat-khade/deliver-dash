@@ -1,7 +1,8 @@
 .tracker-container {
   width: 100%;
   height: 100vh;
-  position: absolute;
+  position: fixed;
+  top: 0px;
   z-index: 30;
   display: flex;
   justify-content: center;
@@ -9,7 +10,81 @@
 }
 
 .tracker-content {
+  position: relative;
   width: 60%;
   height: 80%;
   background-color: white;
+  padding: 30px;
+}
+
+.tracker-order-details {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tracker-product-container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px dotted black;
+  padding: 10px 0;
+}
+
+.tracker-product-id {
+  width: 250px;
+  display: flex;
+  justify-content: center;
+}
+
+.feedback-button {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  margin-right: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #4051a4;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 4px 20px;
+  transition: 0.2s;
+}
+
+.feedback-button:hover {
+  padding: 5px 21px;
+}
+
+.tracker-product-name, 
+.tracker-product-quantity, 
+.tracker-product-price {
+  width: 250px; 
+  display: flex;
+  justify-content: center;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: black
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: grey;
 }
