@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import jwt_decode from 'jwt-decode'
 import axios from "axios"
 import NotificationList from './NotificationList'
+import Tracker from '../Tracker'
 
-const NotificationSplash = () => {
+const NotificationSplash = ({ setTracker }) => {
 
   const [user,setUser] = useState(null)
 
@@ -17,13 +18,15 @@ const NotificationSplash = () => {
         let user = await axios({ url: `/api/getuser/${buyerId}`, baseURL: 'http://localhost:5000' })
         setUser(user.data)
     }
-  },[user])
+  },[])
 
   if(user)
   return (
+    <>
     <div style={{ display: 'block' }}>
-      <NotificationList type = {user.type} id = {user._id}/>
+      <NotificationList setTracker={setTracker} type = {user.type} id = {user._id}/>
     </div>
+    </>
   )
 
   return <></>

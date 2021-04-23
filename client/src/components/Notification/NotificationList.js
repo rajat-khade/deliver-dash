@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Notification from './Notification'
 
-const NotificationList = ({ type, id }) => {
+const NotificationList = ({ type, id, setTracker }) => {
 
   const [notifList, setNotifList] = useState([])
 
@@ -15,15 +15,9 @@ const NotificationList = ({ type, id }) => {
 
   
   return (
-    <div style={{
-      display: 'block', 
-      position: 'absolute', 
-      maxHeight: '300px',
-      overflowY: 'scroll',
-      right: '20px',
-      top: '40px'}}>
+    <div className = "notification-items">
       {notifList.map((notification) => {
-        return <Notification notification={notification}/>
+        return <Notification notification={notification} setTracker={setTracker}/>
       })}
     </div>
   )

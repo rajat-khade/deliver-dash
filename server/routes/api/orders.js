@@ -48,11 +48,7 @@ router.get('/api/:type/orders/:id', async (req,res) => {
     let orders = []
     
     if(status){
-
-      if(status === "placed") {
-        orders = await Order.find({fromId: sellerId, status: 'placed'}).sort("date")
-      }
-
+      orders = await Order.find({fromId: sellerId, status}).sort("date")
       return res.status(200).send(orders)
     }
     
@@ -64,7 +60,7 @@ router.get('/api/:type/orders/:id', async (req,res) => {
   }
 })
 
-
+//update status 
 router.patch('/api/order/:id', async(req,res)=>{
   try{
     const orderId = req.params.id
@@ -81,5 +77,19 @@ router.patch('/api/order/:id', async(req,res)=>{
     res.status(400).send()
   }
 })
+
+//get order with _id
+router.get('/api/getorder/:id', async(req,res)=>{
+  try{
+    const orderId = req.params.id
+
+    let order = await Order.findOne({_id: orderId})
+    res.status(200).send(order)
+  }
+  catch(e){
+    res.status(400).send()
+  }
+})
+
 
 module.exports = router

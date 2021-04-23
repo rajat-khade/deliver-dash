@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PendingOrder from './PendingOrder'
 
-const PendingOrderList = ({ orders }) => {
+const PendingOrderList = ({ orders, forceRender, setForceRender }) => {
+
   console.log(orders)
   return (
     <div style={{width: '100%', padding: '50px'}}>
@@ -25,7 +26,7 @@ const PendingOrderList = ({ orders }) => {
     </div>
     {orders.map((order) => {
       return (
-        <PendingOrder order = {order} />
+        <PendingOrder order = {order}  setForceRender = {setForceRender} forceRender = {forceRender}/>
       )
     })}
     </div>

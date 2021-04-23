@@ -14,6 +14,7 @@ const Orders = () => {
   const [pendingOrders, setPendingOrders] = useState([])  
   const [inTransitOrders, setInTransitOrders] = useState([])  
   const [completedOrders, setCompletedOrders] = useState([])  
+  const [forceRender, setForceRender] = useState(false)
 
   useEffect(async () => {
     let authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth") || localStorage.getItem("delivery-auth")
@@ -30,7 +31,7 @@ const Orders = () => {
       }
 
     
-  }, [])
+  }, [forceRender])
 
   if(orderList.length)
   return (
@@ -43,15 +44,15 @@ const Orders = () => {
         </TabList>
 
         <TabPanel>
-          <PendingOrderList orders={orderList.filter((order) => order.status === 'placed')} />
+          <PendingOrderList setForceRender = {setForceRender} forceRender = {forceRender} orders={orderList.filter((order) => order.status === 'placed' || order.status === 'dispatch')} />
         </TabPanel>
 
         <TabPanel>
-          <PendingOrderList orders={orderList.filter((order) => order.status === 'transit')} />
+          <PendingOrderList setForceRender = {setForceRender} forceRender = {forceRender} orders={orderList.filter((order) => order.status === 'transit')} />
         </TabPanel>
 
         <TabPanel>
-          <PendingOrderList orders={orderList.filter((order) => order.status === 'delivered')} />
+          <PendingOrderList setForceRender = {setForceRender} forceRender = {forceRender} orders={orderList.filter((order) => order.status === 'delivered')} />
         </TabPanel>
       </Tabs>
     </div>

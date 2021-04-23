@@ -18,7 +18,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link, useHistory } from 'react-router-dom';
-import NotificationSplash from '../Notification';
+import NotificationSplash from './Notification';
+import Tracker from './Tracker';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -85,13 +86,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 export default function Navbar({ user, searchTerm, searchTermHandler }) {
+  
   const history = useHistory()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [notification, setNotification] = useState(false)
+  const [tracker, setTracker] = useState(false)
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -191,8 +193,10 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
     </Menu>
   );
 
+  if(user)
   return (
     <div className={classes.grow}>
+      {tracker ? <Tracker tracker={tracker}/> : ""}
       <AppBar 
         style={{backgroundColor: "#1b2021", position: 'fixed', borderBottom: '1px solid white'}}>
         <Toolbar>
@@ -225,11 +229,7 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop} style={{display:'flex',alignItems:'center'}}>
           {user && <span style={{marginRight:'20px',fontSize:'1.2rem'}}>Hey, {user.name}</span>}
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge variant="dot" color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+            
             <IconButton 
               aria-label="show 17 new notifications" 
               color="inherit" 
@@ -239,7 +239,7 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
               <Badge color="secondary">
                 <NotificationsIcon />
               </Badge>
-              { notification ? <NotificationSplash/>: <div></div> }
+              { notification ? <NotificationSplash setTracker={setTracker} />: <div></div> }
             </IconButton>
             
             {user.type!=="Customer"?
@@ -301,4 +301,6 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
       {renderMobileMenu}
     </div>
   );
+
+  return <></>
 }

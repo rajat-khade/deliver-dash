@@ -6,7 +6,6 @@ import LandingRoutes from "./components/LandingRoutes";
 
 const App = () => {
 
-    // localStorage.clear()
 
     return ( 
     <>

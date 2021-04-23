@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Notification.css'
+import Tracker from '../Tracker'
 
-const Notification = ({ notification, notifCode }) => {
-
+const Notification = ({ notification, setTracker }) => {
+  
   const messageBody = {
     'placed': { message : `Your Order with OrderID: ${notification.orderId} has been placed!`, color:'orange'},
     'dispatch': { message: `Your Order with OrderID: ${notification.orderId} has been dispatched!`, color: 'blue'},
@@ -11,7 +12,12 @@ const Notification = ({ notification, notifCode }) => {
   }
 
   return (
-    <div className='notification-container'>
+    <>
+    <div 
+      className='notification-container'
+      onMouseDown={() => {
+        setTracker({...notification})
+      }}>
       <div className='notification-left'>
         <div 
           className='notification-image' 
@@ -30,6 +36,7 @@ const Notification = ({ notification, notifCode }) => {
       </div>
 
     </div>
+  </>
   )
 }
 

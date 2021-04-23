@@ -11,6 +11,8 @@ import nodemailer from "nodemailer"
 import axios from "axios"
 import jwt_decode from "jwt-decode"
 import { useHistory } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +64,6 @@ export default function Signup() {
   const [type, setType] = useState("")
   const [otp, setOtp] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
-  const [passwordError, setPasswordError] = useState("")
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -72,12 +73,12 @@ export default function Signup() {
 
   return (
     <div style={{padding:'3%'}}>
+      <ToastContainer/>
         <form className={classes.root} noValidate autoComplete="off">
             <TextField style={{padding:'3%'}} value = {name} onChange = {(e)=>setName(e.target.value)} id="name" placeholder="Name" variant="outlined" />
             <TextField style={{padding:'3%'}} value = {email} onChange = {(e)=>setEmail(e.target.value)} id="email" placeholder="email" variant="outlined" />
             <TextField style={{padding:'3%'}} value = {password} onChange = {(e)=>setPassword(e.target.value)} id="password" type="password" placeholder="Password" variant="outlined" />
             <TextField style={{padding:'3%'}} value = {confirm} onChange = {(e)=>setConfirm(e.target.value)} id="confirm" type="password" placeholder="Confirm Password" variant="outlined" />
-            <div>{passwordError}</div>
             <TextField style={{padding:'3%'}} value = {location} onChange = {(e)=>setLocation(e.target.value)} id="location" placeholder="Location" />
             <div>
                 <FormControl component="fieldset">
@@ -94,7 +95,7 @@ export default function Signup() {
             {!otpSent?
             <div className={classes.button}>
                 <Button style={{marginTop:'10px',height:'40px'}} onClick = {()=>{
-                  sendOTP('abhishekkumar102k@gmail.com')
+                  sendOTP(email)
                   console.log("mailed",name,email,password,confirm,location,otp)
                   setOtpSent(true)
                   setErrorMessage("")
@@ -121,7 +122,7 @@ export default function Signup() {
                         if(OTP.OTP == otp){
 
                           if(password !== confirm)
-                            setPasswordError("Passwords dont match")
+                            toast.error("Passwords dont match")
                           else{
                             let body = {
                               name,

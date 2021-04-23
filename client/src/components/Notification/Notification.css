@@ -35,3 +35,33 @@
   width: 100%;
   height: 100%;
 }
+
+.notification-items {
+  display: block; 
+  position: absolute; 
+  max-height: 300px;
+  overflow-y: scroll;
+  right: 20px;
+  top: 40px;
+}
+
+/* width */
+.notification-items::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.notification-items::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+.notification-items::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: rgba(156, 156, 156, 0.5);
+}
+
+/* Handle on hover */
+.notification-items::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 156, 156, 0.534);
+}

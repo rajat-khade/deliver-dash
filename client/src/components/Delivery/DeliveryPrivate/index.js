@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode"
 import axios from "axios"
 
 import DeliveryAuth from '../../../containers/DeliveryAuth';
-
+import Navbar from '../../Navbar'
 import Map from "../../Map"
 import OrderList from './OrderList'
 
@@ -11,7 +11,9 @@ const DeliveryPrivate = () => {
     const auth = DeliveryAuth.useContainer();
     const [deliveryId, setDeliveryId] = useState(null)
     const [orders, setOrders] = useState([])
+    const [user, setUser] = useState()
     const [markerLocs, setMarkerLocs] = useState([])
+    const [forceRender, setForceRender] = useState(false)
     const [directionRoutes, setDirectionRoutes] = useState([])
 
     const genRoute = async (lat1,long1,lat2,long2) => {
@@ -73,34 +75,51 @@ const DeliveryPrivate = () => {
         console.log(orders,response.data)
     }
 
-    useEffect(() => {
+    useEffect( async () => {
         let authToken = localStorage.getItem("delivery-auth")
         let user = jwt_decode(JSON.parse(authToken).token)
         let id = user.user.id
+
+        user = await axios({ url: `/api/getuser/${id}`, baseURL: 'http://localhost:5000' })
+
+        setUser(user.data)
         setDeliveryId(id)
         getOrders(id)
-    }, [])
+    }, [forceRender])
 
+    if(user)
     return ( 
-        <div style={{width:'100%',height:'100%'}}>
-            Delivery logged in
-            <button onClick = {()=>auth.logout()}>Log Out</button>
-            <div style = {{display:'flex'}}>
+        <>
+        <Navbar user = {user}/>
+        <div 
+            style={{
+                width: '100%',
+                height: '80%',
+                marginTop: '60px'
+            }}>
+            <div 
+                style = {{
+                    display: 'flex', 
+                    height: '100%', 
+                    width: '100%'
+                }}>
                 <div style = {{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    width: '50%'
+                    width: '50%',
+                    padding: '80px'
                 }}>
-                    <OrderList orders={orders} />
+                    <OrderList setForceRender = {setForceRender} forceRender = {forceRender} orders={orders.filter((order) => order.status !== 'placed')} />
                 </div>
-                <div style={{width:'50%'}}>
+                <div style={{width:'50%',position:'fixed',right:'0px'}}>
                     <Map markerLocs = {markerLocs}/>
                 </div>
             </div>
         </div>
+        </>
     )
-    
+    return <></>
 }
 
 export default DeliveryPrivate

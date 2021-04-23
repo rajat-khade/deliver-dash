@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './Order.css'
 import axios from "axios"
 
-const PendingOrder = ({ order }) => {
+const PendingOrder = ({ order, setForceRender, forceRender }) => {
   const [buyer, setBuyer] = useState("")
 
   useEffect(async () => {
@@ -14,7 +14,7 @@ const PendingOrder = ({ order }) => {
   const dispatch = async () => {
     if (order.status !== 'placed') return
 
-    let res = await axios({ method: 'patch', url: `/api/order/${order._id}?status=dispatch`, baseURL: 'http://localhost:5000' })
+    await axios({ method: 'patch', url: `/api/order/${order._id}?status=dispatch`, baseURL: 'http://localhost:5000' })
 
     const buyerId = order.toId
     const deliveryGuyId = order.deliveryGuyId
@@ -24,10 +24,10 @@ const PendingOrder = ({ order }) => {
       status: 'dispatch'
     }
     
-    let notification = await axios({ method: "post", url: `/api/${buyer.type}/notification/${buyerId}`, baseURL: 'http://localhost:5000', data: body })
+    await axios({ method: "post", url: `/api/${buyer.type}/notification/${buyerId}`, baseURL: 'http://localhost:5000', data: body })
     await axios({ method: "post", url: `/api/Delivery/notification/${deliveryGuyId}`, baseURL: 'http://localhost:5000', data: body })
     
-    console.log(notification)
+    setForceRender(!forceRender)
   }
 
   return (
