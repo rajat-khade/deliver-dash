@@ -98,7 +98,7 @@ const ProductModal = ({modalHandler,modal}) => {
                         <div 
                             style={{
                                 width:'100%',
-                                height:'50%',
+                                height:'55%',
                                 background: `url(${modal.image}) no-repeat`, 
                                 backgroundSize:"cover", 
                                 borderTopLeftRadius:'10px'}} 

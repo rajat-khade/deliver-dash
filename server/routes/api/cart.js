@@ -34,11 +34,10 @@ router.patch('/api/:type/buy/:id', async (req, res) => {
     const buyerType = req.params.type
     const buyerId = req.params.id
 
-    const { deliveryGuy } = req.body
+    const { deliveryGuy, deliveryDate } = req.body
     
-    const deliveryDate = new Date()
-    deliveryDate.setDate(24)
-
+    dDate = new Date(deliveryDate)
+    console.log(dDate)
     // Buyer
     let buyer
     if (buyerType === 'Customer')
@@ -117,7 +116,7 @@ router.patch('/api/:type/buy/:id', async (req, res) => {
         to: buyer.location, 
         fromId: sellerId,
         toId: buyerId,
-        date: deliveryDate,
+        date: dDate,
         transaction: transaction[sellerId], 
         deliveryGuyId: deliveryGuy[sellerId.toString()]
       })

@@ -6,6 +6,7 @@ const Login = ({type, auth}) => {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
 
+  console.log(localStorage.getItem("customer-auth"))
   const loginHandler = (e) => {
     const data = {
       email,
@@ -16,7 +17,6 @@ const Login = ({type, auth}) => {
     auth.login(data)
     e.preventDefault()
   }
-
 
   return (
     <div className='login-container'>

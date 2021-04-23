@@ -1,13 +1,14 @@
 import React from 'react'
+import { useHistory } from 'react-router';
 import WholesalerAuth from '../../../containers/WholesalerAuth';
+import Dashboard from '../../Dashboard';
 
 const WholesalerPrivate = () => {
     const auth = WholesalerAuth.useContainer();
-    
+    const history = useHistory()
     return ( 
         <div>
-            {/* Wholesaler logged in */}
-            {/* <button onClick = {()=>auth.logout()}>Log Out</button> */}
+            {history.push("/wholesaler/stock")}
         </div>
     )
     

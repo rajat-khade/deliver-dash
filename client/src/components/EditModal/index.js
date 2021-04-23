@@ -33,10 +33,10 @@ const EditModal = ({editModal, setEditModal}) => {
 
 
     return (
-        <div className="container" style = {{display:'flex',justifyContent:'center'}}>
+        <div className="container" style = {{display:'flex',justifyContent:'center',marginTop:'-150px'}}>
             <div className = "productModal-container">
                 <button onClick = {()=>setEditModal(false)} style={{zIndex:2,position:'absolute',right:'0', width:'20px', height:'20px',cursor:'pointer',margin: '10px 10px 0 auto',border:'none', background:"url(/images/Group-11862.svg) no-repeat", backgroundSize:'100% auto'}}>
-                <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </button>
 
                 <div style={{width:'100%',height:'100%',display:'flex'}}>
@@ -54,7 +54,7 @@ const EditModal = ({editModal, setEditModal}) => {
                             borderRight:'2px solid black'}}>
                         <div style={{width:'100%',height:'60%',background: `url(${editModal.image}) no-repeat`, backgroundSize:"100% 100%", borderTopLeftRadius:'10px',borderBottomLeftRadius:'10px'}}></div>
 					</div>
-                    <div style={{width:'50%',height:'100%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
+                    <div style={{width:'50%',height:'100%',borderRadius:'10px',display:'flex',flexDirection:'column', padding: '5%'}}>
                         <h1>{editModal.name}</h1>
                         <h2>{editModal.description}</h2>    
                         

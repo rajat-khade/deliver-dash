@@ -1,8 +1,12 @@
+body {
+    font-family: 'Ubuntu', sans-serif;
+}
+
 .productModal-container {
     width: 1000px;
-    margin-top: 50px;
-    height:600px;
+    height:650px;
     z-index: 2;
+    top: 70px;
     background-color: #8abdd3ff;
     border-radius: 10px;
     position: fixed;

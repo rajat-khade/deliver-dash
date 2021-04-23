@@ -2,22 +2,25 @@
     height: 100vh;
     display: flex;
     flex-direction: row;
-    padding-top: 2%;
     background-color: #f5f5f5;
-background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
+    background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
+    justify-content: space-between;
+    color: rgb(51 51 51);
 }
 .buttonWraper {
-    width: 50%;
+    width: 45%;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     padding-top: 1%;
 }
 .signup-form {
-    width: 50%;
-    height: 92vh;
-    margin-left: 40px;
+    width: 90%;
+    height: 95%;
     background-color: #e6e6e6;
     background-image: url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 1px grey;
 }
 .customer-button {
     width: 17rem;
@@ -27,6 +30,7 @@ background-image: url("https://www.transparenttextures.com/patterns/shattered-da
     background-size: cover;
     border-radius: 7px;
     box-shadow: 5px 5px 2px solid #000;
+    transition: 0.2s;
 }
 .retailer-button {
     width: 17rem;
@@ -35,6 +39,7 @@ background-image: url("https://www.transparenttextures.com/patterns/shattered-da
     background-image: url("https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator-usa.com/article/2021/01/14/amazon-tops-dunnhumby-retailer-preference-index-as-consumers-prize-price-speed-safety-during-pandemic/12099965-1-eng-GB/Amazon-tops-dunnhumby-Retailer-Preference-Index-as-consumers-prize-price-speed-safety-during-pandemic_wrbm_large.jpg");
     background-size: cover;
     border-radius: 7px;
+    transition: 0.2s;
 }
 .wholesaler-button {
     width: 17rem;
@@ -44,6 +49,7 @@ background-image: url("https://www.transparenttextures.com/patterns/shattered-da
     /* background-image: url("https://review.chinabrands.com/chinabrands/seo/image/20181206/wholesaler.gif"); */
     background-size: cover;
     border-radius: 7px;
+    transition: 0.2s;
 }
 .logistics-button {
     width: 17rem;
@@ -52,7 +58,16 @@ background-image: url("https://www.transparenttextures.com/patterns/shattered-da
     background-image: url("https://inc42.com/wp-content/uploads/2020/08/food-delivery.jpg");
     background-size: cover;
     border-radius: 7px;
+    transition: 0.2s;
 }
+
+.customer-button:hover, .retailer-button:hover,
+.logistics-button:hover, .wholesaler-button:hover {
+    width: 17.5rem;
+    height: 10.5rem;
+    box-shadow: 0px 0px 5px 1px rgb(50, 152, 236);
+}
+
 .button-name {
     margin-top: -78px;
     font-weight: 700;

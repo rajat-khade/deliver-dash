@@ -200,17 +200,18 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
       <AppBar 
         style={{backgroundColor: "#1b2021", position: 'fixed'}}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
-          <Typography style={{fontSize: '1.7rem',fontWeight: '600'}} className={classes.title} variant="h6" noWrap>
+          </IconButton> */}
+          <Typography style={{fontSize: '1.7rem',fontWeight: '600',cursor:'pointer'}} onClick = {()=>history.push("./login")} className={classes.title} variant="h6" noWrap>
             DoorDash
           </Typography>
+          {searchTermHandler?
           <div className={classes.search} style={{marginLeft: 50}}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -225,7 +226,7 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
               inputProps={{ 'aria-label': 'search' }}
               onChange={(e) => searchTermHandler(e)}
             />
-          </div>
+          </div>:""}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop} style={{display:'flex',alignItems:'center'}}>
           {user && <span style={{marginRight:'20px',fontSize:'1.2rem'}}>Hey, {user.name}</span>}
@@ -269,6 +270,7 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
             </IconButton>
             :''}
             
+            {searchTermHandler?
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -280,7 +282,7 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
               
               <ShoppingCartIcon 
                 onClick = {()=>history.push(`/${user.type}/cart`)}/>
-            </IconButton>
+            </IconButton>:""}
             <IconButton aria-label="logout" color="inherit">
               <PowerSettingsNewIcon onClick = {LogOut} style={{marginLeft:'5px',cursor:'pointer'}} />
             </IconButton>

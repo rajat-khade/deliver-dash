@@ -7,10 +7,12 @@ const ItemSearchList = ({ searchResults, modalHandler }) => {
     <div 
       style={{
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        marginTop:'100px'
       }}>
       {searchResults.map((product) => {
-        return <Item product={product} modalHandler = {modalHandler}/>
+        return <Item product={product} modalHandler = {modalHandler} margin='50' />
       })}
     </div>
   )

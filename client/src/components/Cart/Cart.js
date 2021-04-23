@@ -7,13 +7,17 @@ import CartItem from './CartItem'
 import Map from '../Map.js';
 import './Cart.css'
 import { useHistory } from 'react-router';
+import Loader from 'react-loader-spinner'
+import { TextField } from '@material-ui/core';
 
 const Cart = ({ type, id, cartTotal, setCartTotal }) => {
   const [products, setProducts] = useState([])
+  const [deliveryDate, setDeliveryDate] = useState("2021-04-24")
   const [forceRenderCart, setForceRenderCart] = useState(true);
   const [loaded, setLoaded] = useState(false)
   const history = useHistory()
   const [markerLocs, setMarkerLocs] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const genDist = async (lat1,long1,lat2,long2) => {
     let data = await axios({ url: `/routing/1/calculateRoute/${lat1}%2C${long1}%3A${lat2}%2C${long2}/json?avoid=unpavedRoads&key=VymSTXq7CYyeq7mL4y8ejjdJNA4RXle0`, baseURL: 'https://api.tomtom.com' })
@@ -59,6 +63,7 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
   }
 
   const orderAll = async () => {
+    setLoading(true)
     try {
       let body = {}
       let deliveryGuy  = {}
@@ -107,6 +112,15 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
       }
 
       body["deliveryGuy"] = deliveryGuy
+
+      let dDate = new Date()
+      dDate.setFullYear(deliveryDate.slice(0,4))
+      dDate.setMonth(deliveryDate.slice(5,7))
+      dDate.setDate(deliveryDate.slice(8,10))
+
+      body["deliveryDate"] = dDate
+
+      console.log(body)
       let buyCart = await axios({ method: "patch", url: `/api/${type}/buy/${id}`, baseURL: 'http://localhost:5000', data: body })
       console.log(buyCart)
 
@@ -134,6 +148,20 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
   
   return (
     <div className='cart-container'>
+      {loading && 
+        <>
+        <div style={{position: 'absolute', marginLeft: '50%', zIndex: '30', background: 'none'}}>
+          <Loader 
+            type="TailSpin"
+            color="#00BFFF"
+            height={50}
+            width={50}
+            timeout={30000}
+          />
+        </div>
+        <div style={{position: 'fixed', width: '100vw', height: '100vh', backgroundColor: 'black', opacity: '0.5', position: 'fixed', top: '0px'}} />
+        </>
+      }
       <Map 
         markerLocs = {markerLocs}
         height = '100%'
@@ -155,9 +183,30 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
             })
           }
         </div>
+       
+
+        {/* <form className={classes.container} noValidate> */}
+          <TextField
+            id="date"
+            label="Delivery Date"
+            type="date"
+            defaultValue="2021-04-24"
+            // className={classes.textField}
+            value = {deliveryDate}
+            onChange = {(e)=>{
+              setDeliveryDate(e.target.value)
+              console.log(deliveryDate)
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        {/* </form> */}
+{/* <input type="date"/> */}
         <button className='order-all-button' onClick = {orderAll}>
           Order All
         </button>
+
       </div>
     </div>
   )

@@ -1,8 +1,39 @@
+body {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .stock-container {
   background-color: #fff;
+  margin-top: 60px;
   padding: 3% 10%;
-  width: 100vw;
+  width: 99vw;
   height: 100vh;
   display: flex;
+  /* overflow-x: hidden; */
   flex-direction: column;
+}
+
+.stock-add-button {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(146, 241, 146);
+  color: white;
+  position: fixed;
+  font-size: 3rem;
+  border: none;
+  border-radius: 50%;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  margin-left: 48%;
+}
+
+.stock-add-button:hover {
+  cursor: pointer;
+  width: 52px;
+  height: 52px;
+  background-color: rgb(83, 196, 83);
 }

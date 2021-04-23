@@ -93,6 +93,82 @@ router.post('/api/signup', async (req, res) => {
 })
 
 
+router.post('/api/google', async (req,res) => {
+  const { name, email, password, location, type } = req.body
+
+  try {
+    let user = null
+
+    if (type === 'Customer') {
+      user = await Customer.findOne({ email })
+
+      if (user)
+        res.status(400).send('Customer already exists')
+
+      user = new Customer({ name, email, password, location, type })
+    }
+
+    if (type === 'Retailer') {
+      user = await Retailer.findOne({ email })
+      
+      if (user)
+        res.status(400).send('Retailer already exists')
+      
+      user = new Retailer({ name, email, password, location, type })
+    }
+
+    if (type === 'Wholesaler') {
+      user = await Wholesaler.findOne({ email })
+      if (user)
+        res.status(400).send('Wholesaler already exists')
+      
+      user = new Wholesaler({ name, email, password, location, type })
+    }
+
+    if (type === 'Delivery') {
+      user = await Delivery.findOne({ email })
+      if (user)
+        res.status(400).send('Delivery account already exists')
+      
+      user = new Delivery({ name, email, password, location, type })
+    }
+
+    const salt = await bcrypt.genSalt(10)
+    user.password = await bcrypt.hash(password, salt)
+
+    await user.save()
+
+    const payload = { user: { id: user._id }}
+
+    jwt.sign(payload, config.get('JWT_SECRET'), { expiresIn: 360000 }, (err, token) => {
+      if (err) throw err
+
+      res.status(200).send({ token })
+    })
+
+  } catch (error) {
+    if (error) console.log(error.data)
+  }
+})
+
+
+router.get('/api/checkemail/:email', async (req,res) => {
+  let email = req.params.email
+
+  try {
+    let user = await Customer.findOne({email}) 
+    user = user || await Retailer.findOne({email}) 
+    user = user || await Wholesaler.findOne({email})
+    user = user || await Delivery.findOne({email})
+    
+    res.status(200).send(user)
+  }
+  catch(e){
+    res.status(400).send({"error":"Invalid user email"})
+  }
+})
+
+
 router.get('/api/getuser/:id', async (req,res) => {
   let userId = req.params.id
 
@@ -107,10 +183,6 @@ router.get('/api/getuser/:id', async (req,res) => {
   catch(e){
     res.status(400).send({"error":"Invalid user id"})
   }
-
-  
-
-
 })
 // router.post('/api/customer/login', async (req, res) => {
 //   const { email, password } = req.body
@@ -246,7 +318,7 @@ router.get('/api/otp/:email', async (req, res) => {
 
     const payload = { OTP: OTP}
 
-    jwt.sign(payload, config.get('JWT_SECRET'), { expiresIn: 60 }, (err, token) => {
+    jwt.sign(payload, config.get('JWT_SECRET'), { expiresIn: 120 }, (err, token) => {
       if (err) throw err
 
       res.status(200).send({ token })

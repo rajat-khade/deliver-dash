@@ -74,21 +74,18 @@ const Dashboard = () => {
                     category={'Groceries'} 
                     modalHandler = {modalHandler}
                     color='brown'/>
-
                 <Advertise image={'/images/beverages.png'} color='blue-bg'/>
                 <ItemList 
                     type = {user.type} 
                     category={'Beverages'} 
                     modalHandler = {modalHandler}
                     color='blue'/>
-                <Features />
                 <Advertise image={'/images/meat.png'} color='red-brown-bg'/>
                 <ItemList 
                     type = {user.type} 
                     category={'Processed foods'} 
                     modalHandler = {modalHandler}
                     color='red-brown'/>
-
                 <Advertise image={'/images/snacks.jpg'} color='yellow-bg'/>
                 <ItemList 
                     type = {user.type} 

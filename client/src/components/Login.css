@@ -4,7 +4,7 @@
     flex-direction: column;
     padding-top: 15%;
     background-color: #f3f4ed;
-background-image: url("https://www.transparenttextures.com/patterns/low-contrast-linen.png");
+    background-image: url("https://www.transparenttextures.com/patterns/low-contrast-linen.png");
 }
 .input {
     width: 30rem;

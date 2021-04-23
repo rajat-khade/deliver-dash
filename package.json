@@ -29,6 +29,7 @@
         "mongoose": "^5.12.2",
         "nodemailer": "^6.5.0",
         "nodemon": "^2.0.7",
+        "react-loader-spinner": "^4.0.0",
         "react-multi-carousel": "^2.6.2",
         "react-router-dom": "^5.2.0",
         "react-tabs": "^3.2.2",
