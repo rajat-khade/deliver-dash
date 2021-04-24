@@ -13,12 +13,13 @@ const ProductModal = ({modalHandler,modal}) => {
     const [itemsInCart, setItemsInCart] = useState({})
     const [forceRerender, setForceRerender] = useState(true);
     const [markerLocs, setMarkerLocs] = useState([])
+    const [user, setUser] = useState('')
 
     const history = useHistory()
     let authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth")
     
-    let user = jwt_decode(JSON.parse(authToken).token)
-    let buyerId = user.user.id
+    let userDecoded = jwt_decode(JSON.parse(authToken).token)
+    let buyerId = userDecoded.user.id
     // let buyerId = "234320"
 
     let buyerType
@@ -28,6 +29,7 @@ const ProductModal = ({modalHandler,modal}) => {
         buyerType = "Retailer"
 
     useEffect(async () => {
+        let user = await axios({ url: `/api/getuser/${buyerId}`, baseURL: 'http://localhost:5000' })
         
         let products = await axios({ url: `/api/${buyerType}/products`, baseURL: 'http://localhost:5000' })
         let cart = await axios({ url: `/api/${buyerType}/cart/${buyerId}`, baseURL: 'http://localhost:5000' })
@@ -66,6 +68,16 @@ const ProductModal = ({modalHandler,modal}) => {
             incart[product.ownerName] = cart[product._id] || 0
             sellerList.push(sellerData)
         }
+
+        const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+ encodeURIComponent(user.data.location) + '.json?access_token=pk.eyJ1IjoiaG9wZS1zY290Y2giLCJhIjoiY2tiaHduYnRlMDlsOTJxbWJsMTg5aHlsOSJ9.S92DKT4JNJ8jkzD4KQdsGw&limit=1'
+
+        const {data : coordinates} = await axios({ url: url })
+        let lat = coordinates.features[0].center[1]
+        let long = coordinates.features[0].center[0]
+        let loc = coordinates.features[0].place_name
+        
+        // console.log(markerLocs)
+        mlocs.push([long,lat,loc, "#aa2ee6"])
         
         setMarkerLocs(mlocs)
         setRetailerInfo(sellerList)
@@ -109,22 +121,21 @@ const ProductModal = ({modalHandler,modal}) => {
                     <div style={{width:'50%',height:'100%',padding:'10%',borderRadius:'10px',display:'flex',flexDirection:'column'}}>
                         <h1>{modal.name}</h1>
                         <h2>{modal.description}</h2>
-                        <div>{modal.price}</div>
 
                         <table>
                             <tr>
                                 <th>{modal.ownerType} Name</th>
                                 <th>Price</th>
-                                <th>Items in Cart</th>
+                                <th style={{width: '100%', display: 'flex', justifyContent: 'center'}}>Items in Cart</th>
                             </tr>
 
                             {
                                 retailerInfo.map((retailer)=>{
                                     return (
                                         <tr>
-                                            <td>{retailer.name}</td>
+                                            <td style={{width: '100%', display: 'flex', justifyContent: 'center'}}>{retailer.name}</td>
                                             <td>{retailer.price}</td>
-                                            <td>
+                                            <td style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 
                                             <i class="fas fa-minus-circle" 
                                                 onClick = { async ()=>{

@@ -11,33 +11,6 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'rotinga9@gmail.com',
-    pass: 'rotirotiroti'
-  }
-});
-
-
-const sendOTP = (receiverMail, OTP) => {
-  var mailOptions = {
-    from: 'rotinga9@gmail.com',
-    to: receiverMail,
-    subject: 'Live Mart OTP Verification',
-    text: 'OTP: ' + OTP + '\nValid for 2 minutes'
-  };
-  
-
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
-}
-
 
 
 router.post('/api/signup', async (req, res) => {
@@ -303,6 +276,37 @@ router.post('/api/:type/login', async (req, res) => {
 
 
 router.get('/api/otp/:email', async (req, res) => {
+  
+  var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    // service: 'gmail',
+    secure: true,
+    port: 465,
+    auth: {
+      user: 'rotinga9@gmail.com',
+      pass: 'rotirotiroti'
+    }
+  });
+
+
+  const sendOTP = (receiverMail, OTP) => {
+    var mailOptions = {
+      from: 'rotinga9@gmail.com',
+      to: receiverMail,
+      subject: 'Live Mart OTP Verification',
+      text: 'OTP: ' + OTP + '\nValid for 2 minutes'
+    };
+    
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
+
   const email = req.params.email
 
   if (!email)

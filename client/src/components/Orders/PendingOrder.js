@@ -42,7 +42,7 @@ const PendingOrder = ({ order, setForceRender, forceRender }) => {
         {order.transaction}
       </div>
       <div className='seller-order-delivery-date'>
-        {order.date.toString()}
+        {order.date.slice(0, 10)}
       </div> 
       <div 
         className={`seller-order-dispatch ${order.status}`}

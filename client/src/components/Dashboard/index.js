@@ -7,6 +7,7 @@ import ProductModal from '../ProductModal'
 import axios from "axios"
 import jwt_decode from "jwt-decode"
 import ItemSearchList from './ItemSearchList'
+import Loader from 'react-loader-spinner'
 
 const Dashboard = () => {
 
@@ -14,6 +15,7 @@ const Dashboard = () => {
     const [user,setUser] = useState(null)
     const [searchTerm, setSearchTerm] = useState('')
     const [searchResults, setSearchResults] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const searchTermHandler = async (e) => {
         setSearchTerm(e.target.value)
@@ -31,6 +33,7 @@ const Dashboard = () => {
     }
 
     useEffect( async () => {
+        setLoading(true)
         let authToken = localStorage.getItem("customer-auth") || localStorage.getItem("retailer-auth") || localStorage.getItem("wholesaler-auth") || localStorage.getItem("delivery-auth")
         
         if(authToken){
@@ -40,13 +43,28 @@ const Dashboard = () => {
             let user = await axios({ url: `/api/getuser/${buyerId}`, baseURL: 'http://localhost:5000' })
             setUser(user.data)
         }
+        setLoading(false)
         
     }, [])
     
 
     if(user){
         return (
-            <div>           
+            <div>
+            {loading && 
+                <>
+                <div style={{position: 'absolute', marginLeft: '50%', marginTop: '50%', zIndex: '30', background: 'none'}}>
+                  <Loader 
+                    type="TailSpin"
+                    color="#00BFFF"
+                    height={50}
+                    width={50}
+                    timeout={30000}
+                  />
+                </div>
+                <div style={{position: 'fixed', width: '100vw', height: '100vh', backgroundColor: 'black', opacity: '0.5', position: 'fixed', top: '0px'}} />
+                </>
+              }           
             {modal && <ProductModal modalHandler = {modalHandler} modal = {modal}/>}
             <Navbar user={user} searchTermHandler={searchTermHandler} searchTerm={searchTerm} />
             {!searchTerm && 

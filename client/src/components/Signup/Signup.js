@@ -46,13 +46,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Signup() {
   
   const history = useHistory()
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'rotinga9@gmail.com',
-      pass: 'rotirotiroti'
-    }
-  });
   
   const clientId = '1068390453446-tkpkdi13aoquhf0th8bdsle2uhr2th2m.apps.googleusercontent.com'
   
@@ -60,8 +53,6 @@ export default function Signup() {
     let token = await axios({ url: `/api/otp/${receiverMail}`, baseURL: 'http://localhost:5000' })
     localStorage.setItem("otpToken",token.data.token)
   }
-
-
 
   // const validateOTP = (OTP) => 
  
@@ -165,7 +156,7 @@ export default function Signup() {
               {!otpSent?
             <div style={{display:'flex', width:'100%',justifyContent:'space-evenly', padding: '0 80px', marginTop: '50px'}}>
               <div style={{backgroundColor:'yellow', display: 'flex', justifyContent: 'center'}}>
-                <Button style={{marginTop:'0',height:'40px',backgroundColor: '#333333',width: '200px'}} onClick = {()=>{
+                <Button style={{marginTop:'0',height:'40px',backgroundColor: '#333333',width: '185px'}} onClick = {()=>{
                   sendOTP(email)
                   console.log("mailed",name,email,password,confirm,location,otp)
                   setOtpSent(true)
