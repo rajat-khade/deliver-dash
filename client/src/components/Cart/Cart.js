@@ -203,9 +203,17 @@ const Cart = ({ type, id, cartTotal, setCartTotal }) => {
           />
         {/* </form> */}
 {/* <input type="date"/> */}
-        <button className='order-all-button' onClick = {orderAll}>
-          Order All
-        </button>
+        <div style={{width: '70%', display: 'flex', justifyContent: 'space-between'}}>
+          <button className='order-all-button' onClick = {orderAll}>
+            Order All
+          </button>
+          
+          <a href='https://calendly.com/door-dash/delivery' target='_blank' style={{textDecoration: 'none'}}>
+            <button className='order-all-button'>
+              Book Order Offline
+            </button>
+          </a>
+        </div>
 
       </div>
     </div>

@@ -55,7 +55,6 @@ export default function Signup() {
   }
 
   // const validateOTP = (OTP) => 
- 
 
   const classes = useStyles();
   const [value, setValue] = useState('female');
