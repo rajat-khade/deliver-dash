@@ -283,15 +283,15 @@ router.get('/api/otp/:email', async (req, res) => {
     secure: true,
     port: 465,
     auth: {
-      user: 'rotinga9@gmail.com',
-      pass: 'rotirotiroti'
+      user: 'sayantan.biswas432@gmail.com',
+      pass: 'musicequalslove'
     }
   });
 
 
   const sendOTP = (receiverMail, OTP) => {
     var mailOptions = {
-      from: 'rotinga9@gmail.com',
+      from: 'sayantan.biswas432@gmail.com',
       to: receiverMail,
       subject: 'Live Mart OTP Verification',
       text: 'OTP: ' + OTP + '\nValid for 2 minutes'

@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://shawn432:shawn432@nymble.fo9hv.mongodb.net/oopdb?retryWrites=true&w=majority",
+  "JWT_SECRET": "thisisoopsproject"
+}
