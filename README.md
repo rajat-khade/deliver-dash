@@ -58,7 +58,7 @@ they reach their destination.
 ![Cart](/res/offline.png)
 
 ### 7. Chat Bot
-![Cart](/res/chatbot.png)
+<img src="/res/chatbot.png" alt="Chat Bot" width="200"/>
 
 
 
