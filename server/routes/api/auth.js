@@ -283,17 +283,17 @@ router.get('/api/otp/:email', async (req, res) => {
     secure: true,
     port: 465,
     auth: {
-      user: 'sayantan.biswas432@gmail.com',
-      pass: 'musicequalslove'
+      user: 'deliverdashofficial@gmail.com',
+      pass: config.get('OTP_Pass')
     }
   });
 
 
   const sendOTP = (receiverMail, OTP) => {
     var mailOptions = {
-      from: 'sayantan.biswas432@gmail.com',
+      from: 'deliverdashofficial@gmail.com',
       to: receiverMail,
-      subject: 'Live Mart OTP Verification',
+      subject: 'Deliver Dash OTP Verification',
       text: 'OTP: ' + OTP + '\nValid for 2 minutes'
     };
     
