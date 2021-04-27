@@ -6,7 +6,7 @@ the entire spectrum of users ranging from retailers to delivery-executives.
 ## Overview
 ### 1. Signup and Login
 Sign Up as one of the 4 User Types - Customer, Retailer, Wholesaler or a Delivery person. 
-Choose the corresponding user section from the right panel to login.
+Choose the corresponding tab from the panel on the right to login as Customer, Retailer, Wholesaler or Delivery Person.
 
 
 ### 2. Dashboard
@@ -52,7 +52,7 @@ they reach their destination.
 ![Cart](/res/search.png)
 
 ### 5. OTP and Google Auth
-![Cart](/res/otp.png)
+<img src="otp.png" alt="OTP" width="200"/>
 
 ### 6. Offline Ordering System
 ![Cart](/res/offline.png)
