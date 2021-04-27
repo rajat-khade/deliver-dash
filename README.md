@@ -67,7 +67,7 @@ Deliveries Interface is available only to the Delivery Executive. Deliveries sec
 
 
 ## Order-Delivery Cycle
-  GIF of order cycle
+  ![Cart](/res/ODC.gif)
 
 
 
