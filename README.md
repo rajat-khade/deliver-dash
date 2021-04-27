@@ -52,7 +52,7 @@ they reach their destination.
 ![Cart](/res/search.png)
 
 ### 5. OTP and Google Auth
-<img src="/res/otp.png" alt="OTP" width="200"/>
+<img src="/res/otp.png" alt="OTP" width="800"/>
 
 ### 6. Offline Ordering System
 ![Cart](/res/offline.png)
