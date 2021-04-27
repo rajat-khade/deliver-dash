@@ -4,26 +4,25 @@ Node.js, Express.js and MongoDB, this single page application has been built kee
 the entire spectrum of users ranging from retailers to delivery-executives.
 
 ## Overview
-**1. Signup and Login**
+###1. Signup and Login
 To Sign up, choose the type from the dropdown list i.e. one of Customer, Retailer, Wholesaler or a Delivery person. 
 To login, choose the corresponding user section from the panel and you'll be redirected to the login page.
 
 
-**2. Dashboard **
-![Dashboard](https://drive.google.com/uc?export=view&id=1gj0pxiT-OKmNHU2E1v8Jmws1BPKYAOGW)
+###2. Dashboard
 
  
 
-**3. Cart ** 
+###3. Cart 
 
 
-**4. Stock **  
+###4. Stock
 
 
-**5. Orders ** 
+###5. Orders 
 
 
-**6. Delivery**
+###6. Delivery
 
 
 
@@ -32,13 +31,13 @@ To login, choose the corresponding user section from the panel and you'll be red
 
 ##Features and Functionalities
 
-**1. Map Services**
-**2. Notification System**
-**3. Courier Allotment System**
-**4. Search bar**
-**5. OTP and Google Auth**
-**6. Offline Ordering System**
-**7. Chat Bot**
+###1. Map Services
+###2. Notification System
+###3. Courier Allotment System
+###4. Search bar
+###5. OTP and Google Auth
+###6. Offline Ordering System
+###7. Chat Bot
 
 
 
