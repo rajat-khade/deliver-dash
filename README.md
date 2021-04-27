@@ -62,10 +62,10 @@ the entire spectrum of users ranging from retailers to delivery-executives.
 ### 2. Notification System
 A robust Notification System has been set-up to inform all users involved in the Delivery Cycle to receive a notification suitable to the status of the Order.
 * Orders go through 4 stages in the entire Delivery Cycle - 
- 1. Placed, 
- 2. Dispatched, 
- 3. In Transit
- 4. Delivered. 
+  1. Placed, 
+  2. Dispatched, 
+  3. In Transit
+  4. Delivered. 
 These stages can be tracked using the Notification System. 
 * By clicking on any of the notification, the user gets to view the order details and the order status simultaneously in a separate window.
 ![Cart](/res/notification.png)
