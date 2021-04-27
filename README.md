@@ -5,8 +5,8 @@ the entire spectrum of users ranging from retailers to delivery-executives.
 
 ## Overview
 ### 1. Signup and Login
-To Sign up, choose the type from the dropdown list i.e. one of Customer, Retailer, Wholesaler or a Delivery person. 
-To Login, choose the corresponding user section from the panel and you'll be redirected to the login page.
+Sign Up as one of the 4 User Types - Customer, Retailer, Wholesaler or a Delivery person. 
+Choose the corresponding user section from the right panel to login.
 
 
 ### 2. Dashboard
@@ -38,7 +38,7 @@ they reach their destination.
 
 
 
-##Features and Functionalities
+## Features and Functionalities
 
 ### 1. Map Services
 
