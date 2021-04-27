@@ -41,14 +41,24 @@ they reach their destination.
 ## Features and Functionalities
 
 ### 1. Map Services
+![Cart](/res/map.png)
 
 ### 2. Notification System
+![Cart](/res/notification.png)
 
 ### 3. Courier Allotment System
+
 ### 4. Search bar
+![Cart](/res/search.png)
+
 ### 5. OTP and Google Auth
+![Cart](/res/otp.png)
+
 ### 6. Offline Ordering System
+![Cart](/res/offline.png)
+
 ### 7. Chat Bot
+![Cart](/res/chatbot.png)
 
 
 
