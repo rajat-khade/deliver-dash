@@ -62,15 +62,51 @@ the entire spectrum of users ranging from retailers to delivery-executives.
 ### 2. Notification System
 A robust Notification System has been set-up to inform all users involved in the Delivery Cycle to receive a notification suitable to the status of the Order.
 * Orders go through 4 stages in the entire Delivery Cycle - 
- - Placed, 
- - Dispatched, 
- - In Transit
- - Delivered. 
+ 1. Placed, 
+ 2. Dispatched, 
+ 3. In Transit
+ 4. Delivered. 
 These stages can be tracked using the Notification System. 
 * By clicking on any of the notification, the user gets to view the order details and the order status simultaneously in a separate window.
 ![Cart](/res/notification.png)
 
 ### 3. Courier Allotment System
+```javascript
+for (let retailerId of retailerIds) 
+{       
+    let retailer = await axios({ url: `/api/getuser/${retailerId}`, baseURL: 'http://localhost:5000' })
+
+    let minDist = 1e12, minDeliveryId = ''
+
+    for(let i = 0; i < deliveryPersons.data.length; i++) {
+      let deliveryPerson = deliveryPersons.data[i]
+      let lat1,long1,lat2,long2
+
+      const url1 = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+ encodeURIComponent(deliveryPerson.location) + '.json?access_token=<YOUR_TOKEN>&limit=1'
+      const url2 = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+ encodeURIComponent(retailer.data.location) + '.json?access_token=<YOUR_TOKEN>&limit=1'
+
+      const {data: data1} = await axios({url: url1})
+      lat1 = data1.features[0].center[1]
+      long1 = data1.features[0].center[0]
+
+      const {data: data2} = await axios({url: url2})
+      lat2 = data2.features[0].center[1]
+      long2 = data2.features[0].center[0]
+
+
+      let dist = await genDist(lat1,long1,lat2,long2)
+      console.log("distance",dist)
+      if(dist < minDist){
+        minDist = dist
+        minDeliveryId = deliveryPerson._id
+      }
+    }
+
+    //Assigning the delivery person for the current retailer
+    deliveryGuy[retailerId] = minDeliveryId
+  }
+
+```
 
 ### 4. Search bar
 ![Cart](/res/search.png)
