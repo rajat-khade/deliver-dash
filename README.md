@@ -22,15 +22,17 @@ the trash icon. Click on order now to empty the cart and place the order.
 
 ### 4. Stock
 Contains a list of products in stock and their details. Click on any item to edit the quantity and price of any product. Use the + icon at the bottom to add a new product
-
+![Cart](/res/stock.png)
 
 ### 5. Orders 
 View all orders under three different sections namely Pending, In Transit and Delivered. For each order in the pending section, the user has the option to dispatch the order 
 and assign it to the delivery associate.
+![Cart](/res/orders.png)
 
 ### 6. Delivery
 View all orders that have been assigned to the delivery associate. For each dispatched order, the user has the option to accept the order and then finish the delivery when they
 they reach their destination.
+![Cart](/res/delivery.png)
 
 
 
