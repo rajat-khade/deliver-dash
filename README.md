@@ -10,7 +10,8 @@ To login, choose the corresponding user section from the panel and you'll be red
 
 
 **2. Dashboard **
-![Dashboard](https://drive.google.com/file/d/1gj0pxiT-OKmNHU2E1v8Jmws1BPKYAOGW/view?usp=sharing)
+![Dashboard](https://drive.google.com/uc?export=view&id=1gj0pxiT-OKmNHU2E1v8Jmws1BPKYAOGW)
+
  
 
 **3. Cart ** 
