@@ -209,7 +209,7 @@ export default function Navbar({ user, searchTerm, searchTermHandler }) {
             <MenuIcon />
           </IconButton> */}
           <Typography style={{fontSize: '1.7rem',fontWeight: '600',cursor:'pointer'}} onClick = {()=>history.push("./login")} className={classes.title} variant="h6" noWrap>
-            DoorDash
+            DeliverDash
           </Typography>
           {searchTermHandler?
           <div className={classes.search} style={{marginLeft: 50}}>

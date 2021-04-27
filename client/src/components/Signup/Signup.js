@@ -118,7 +118,7 @@ export default function Signup() {
         </div>
       }
       <h2 style={{textAlign: 'center', color: '#333333',fontWeight: '700',marginTop: '-5px',marginBottom: '8px'}}>Get Started</h2>
-      <h4 style={{textAlign: 'center', color: '#333333',fontWeight: '700',marginTop: '-5px',marginBottom: '8px'}}>Signup with <span style={{color: 'rgb(44, 173, 212)', fontSize: '1.5rem'}}>DoorDash!</span></h4>
+      <h4 style={{textAlign: 'center', color: '#333333',fontWeight: '700',marginTop: '-5px',marginBottom: '8px'}}>Signup with <span style={{color: 'rgb(44, 173, 212)', fontSize: '1.5rem'}}>DeliverDash!</span></h4>
       <ToastContainer/>
         <form style={{display: 'flex',flexDirection: 'column',alignItems: 'center', marginTop: '30px'}} className={classes.root} noValidate autoComplete="off">
             <input style={{padding:'1%',height: '45px',textAlign: 'center',borderRadius: '5px'}} value = {name} onChange = {(e)=>setName(e.target.value)} id="name" placeholder="Name" variant="outlined" />
