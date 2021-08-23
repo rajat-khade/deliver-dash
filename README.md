@@ -131,3 +131,4 @@ for (let retailerId of retailerIds)
 1. Sayantan Biswas
 2. Abhishek Kumar (https://github.com/AbhishekKumar102K)
 3. Rajat Khade (https://github.com/rajat-khade)
+4. Raghav Jeogani (https://github.com/raghav-jeogani)
